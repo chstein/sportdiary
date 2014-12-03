@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="26a1f3bd666d4221ad655f3ad1e82cf6" Name="Diagram1">
+        <EntityTypeShape EntityType="Sporty.DataModel.Application" Width="1.5" PointX="0.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Attachment" Width="1.5" PointX="9.75" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Exercise" Width="1.5" PointX="7.5" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Goal" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Material" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.MaterialPerExercise" Width="1.5" PointX="9.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Metrics" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Phase" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Plan" Width="1.5" PointX="10.5" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Profile" Width="1.5" PointX="5.25" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.SportType" Width="1.5" PointX="5.25" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.TrainingType" Width="1.5" PointX="5.25" PointY="40.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.User" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.WeekPlan" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sporty.DataModel.Zone" Width="1.5" PointX="5.25" PointY="43" IsExpanded="true" />
+        <AssociationConnector Association="Sporty.DataModel.FK__User__Applicatio__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Attachment_Exercise" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Excercise_SportType" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Excercise_TrainingType" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Excercise_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Excercise_Zone" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_MaterialPerExercise_Exercise" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Goal_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Material_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_MaterialPerExercise_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Metrics_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Phase_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_WeekPlan_Phase" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Plan_SportType" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Plan_TrainingType" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Plan_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Plan_Zone" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Profile_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_SportType_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_TrainingType_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_WeekPlan_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Sporty.DataModel.FK_Zone_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

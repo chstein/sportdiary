@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{611ECC0B-8674-4334-9BB0-A80AB7B6E5BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sporty.Business</RootNamespace>
+    <AssemblyName>Sporty.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalendarService.cs" />
+    <Compile Include="Helper\CalcHelper.cs" />
+    <Compile Include="Helper\ImageFilter.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="ICalendarService.cs" />
+    <Compile Include="Interfaces\BaseRepository.cs" />
+    <Compile Include="Interfaces\ICalcHelper.cs" />
+    <Compile Include="Interfaces\IPhaseRepository.cs" />
+    <Compile Include="Interfaces\IWeekPlanRepository.cs" />
+    <Compile Include="Interfaces\IMetricRepository.cs" />
+    <Compile Include="Interfaces\IApplicationRepository.cs" />
+    <Compile Include="Interfaces\IAttachmentRepository.cs" />
+    <Compile Include="Interfaces\IExerciseRepository.cs" />
+    <Compile Include="Interfaces\IGoalRepository.cs" />
+    <Compile Include="Interfaces\IPlanRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ITrainingTypeRepository.cs" />
+    <Compile Include="Interfaces\IZoneRepository.cs" />
+    <Compile Include="IO\HrmParser.cs" />
+    <Compile Include="IO\ExerciseParser.cs" />
+    <Compile Include="IO\Gpx\GpxParser.cs" />
+    <Compile Include="IO\ReadHelper.cs" />
+    <Compile Include="IO\Gpx\Segs.cs" />
+    <Compile Include="IO\Tcx\Activity.cs" />
+    <Compile Include="IO\Tcx\Lap.cs" />
+    <Compile Include="IO\Tcx\Position.cs" />
+    <Compile Include="IO\Tcx\TcxParser.cs" />
+    <Compile Include="IO\Gpx\GpxTrack.cs" />
+    <Compile Include="IO\Tcx\Track.cs" />
+    <Compile Include="IO\Tcx\TrackPoint.cs" />
+    <Compile Include="IO\TurParser.cs" />
+    <Compile Include="Repositories\ApplicationRepository.cs" />
+    <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Interfaces\IMaterialRepository.cs" />
+    <Compile Include="Repositories\MaterialRepository.cs" />
+    <Compile Include="Repositories\ProfileRepository.cs" />
+    <Compile Include="Interfaces\IProfileRepository.cs" />
+    <Compile Include="Series\CadenceDataSeries.cs" />
+    <Compile Include="Series\TrainingAllSportTypeSeries.cs" />
+    <Compile Include="Repositories\WeekPlanRepository.cs" />
+    <Compile Include="Repositories\PhaseRepository.cs" />
+    <Compile Include="Repositories\MetricRepository.cs" />
+    <Compile Include="Repositories\ExerciseRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\ISportTypeRepository.cs" />
+    <Compile Include="Repositories\GoalRepository.cs" />
+    <Compile Include="Repositories\PlanRepository.cs" />
+    <Compile Include="Repositories\SportTypeRepository.cs" />
+    <Compile Include="Repositories\TrainingTypeRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\ZoneRepository.cs" />
+    <Compile Include="Series\DurationAllSportTypeSeries.cs" />
+    <Compile Include="Series\DurationPerSportTypeSeries.cs" />
+    <Compile Include="Series\ElevationDataSeries.cs" />
+    <Compile Include="Series\ExerciseDataSeries.cs" />
+    <Compile Include="Series\HeartrateAllSportTypeSeries.cs" />
+    <Compile Include="Series\HeartrateDataSeries.cs" />
+    <Compile Include="Series\HeartrateDataSeriesTur.cs" />
+    <Compile Include="Series\HeartratePerSportTypeSeries.cs" />
+    <Compile Include="Series\MetricSeries.cs" />
+    <Compile Include="Series\PaceDataSeries.cs" />
+    <Compile Include="Series\ReportSeries.cs" />
+    <Compile Include="Series\SeriesPoint.cs" />
+    <Compile Include="Series\SpeedDataSeries.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sporty.DataModel\Sporty.DataModel.csproj">
+      <Project>{F30B88E2-7F7A-4D0B-87A1-85522E16E227}</Project>
+      <Name>Sporty.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sporty.Common\Sporty.Common.csproj">
+      <Project>{91ECA10F-DF11-41B0-B292-075F70AA3FC8}</Project>
+      <Name>Sporty.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sporty.ViewModel\Sporty.ViewModel.csproj">
+      <Project>{CB209751-25D5-41E7-A0BC-CF72028BDC1C}</Project>
+      <Name>Sporty.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
