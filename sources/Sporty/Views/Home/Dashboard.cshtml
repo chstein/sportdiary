@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<div class="container dashboard">
+    <div class="row">
+        <div class="page-header">
+            <h2>Dashboard</h2>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span8">
+            <div class="row">
+                <div id="goal">
+                    <div class="accordion" id="accordionGoal">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionGoal" href="#collapseGoal">Nächstes Ziel
+                                </a>
+                            </div>
+                            <div id="collapseGoal" class="accordion-body collapse in">
+                                <div class="accordion-inner">
+                                    10 Tage zum Harzgebirgslauf! 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="Exercise">
+                    <div class="accordion" id="accordionExercise">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionExercise" href="#collapseExercise">Einheiten in den letzten 30 Tagen
+                                </a>
+                            </div>
+                            <div id="collapseExercise" class="accordion-body collapse in">
+                                <div class="accordion-inner">
+                                    Chart mit Dauer 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="row">
+                <div id="training">
+                    <div class="accordion" id="accordionTraining">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionTraining" href="#collapseTraining">Aktuelle Fitness
+                                </a>
+                            </div>
+                            <div id="collapseTraining" class="accordion-body collapse in">
+                                <div class="accordion-inner">
+                                    <ul>
+                                        <li>Fitness <small>(CTL)</small>
+                                            <span class="pull-right">80</span>
+                                        </li>
+                                        <li>Müdigkeit <small>(ATL)</small>
+                                            <span class="pull-right">70</span></li>
+                                        <li>Stress Balance <small>(TSB)</small>
+                                            <span class="pull-right">3</span></li>
+                                        <li>Trainingsstress <small>(CTL)</small>
+                                            <span class="pull-right">75%</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

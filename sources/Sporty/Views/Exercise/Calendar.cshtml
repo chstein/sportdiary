@@ -1,0 +1,236 @@
+﻿@model Sporty.ViewModel.CalendarViewModel
+@{if (!IsAjax)
+  {
+      Layout = "~/Views/Shared/_Site.cshtml";
+  }
+}
+@using Sporty.ViewModel
+<div>
+    <div id="calendarview" class="container">
+        <div id="tableInfo">
+            @using (Html.BeginForm())
+            {
+                <input type="hidden" id="currentDay" />@*
+                @Html.Hidden("CurrentMonth", Model.Month)
+                @Html.Hidden("CurrentYear", Model.Year)
+                *@<div class="btn-toolbar row">
+                    <div class="btn-group span2">
+                        <a class="btn" href="#" data-bind="click: previousMonth"><i class="icon-chevron-left"></i></a>
+                        <a class="btn" href="#" data-bind="click: nextMonth"><i class="icon-chevron-right"></i></a>
+                    </div>
+                    <div class="btn-group span4">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" data-bind="text: monthName">
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="monthList" class="dropdown-menu" data-bind="foreach: monthNames()">
+                                <li><a data-bind="text: name, click: $parent.selectedMonth"></a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" data-bind="text: year">
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="yearList" class="dropdown-menu input-small" data-bind="foreach: years()">
+                                <li><a data-bind="text: year, click: $parent.selectedYear"></a></li>
+                                @*@for (int i = 0; i < Model.Years.Count; i++)
+                                {
+                                    <li @(Model.Year == Model.Years[i] ? "class=active" : "")><a id="@Model.Years[i]">@Model.Years[i]</a></li>
+                                }*@
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        @Html.ActionLink("Einheit Hochladen", "upload", null, new { @class = "btn" })
+                        @Html.ActionLink("Neue Einheit Manuell", "Create", null, new { @class = "aCreate btn", title = "Neue Einheit erstellen" })
+                    </div>
+
+                    <div class="btn-group pull-right">
+                        <a href="@Url.Action("ExerciseICalFeed", "Services", new { id = Model.PublicICalUrl })" class="btn">
+                            <img src="~/Content/images/rss.png" title="RSS Feed Link zum abonnieren" width="20px" height="20px" class="icon-" /></a>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <a class="btn" href="@Url.Action("Index", new { listDefaultView = true })">
+                            <i class="icon-list" id="list"></i>&nbsp;Liste</a>
+                        <a class="btn active" href="@Url.Action("Calendar", new { listDefaultView = false })">
+                            <i class="icon-calendar" id="calendar"></i>&nbsp;Kalender</a>
+                    </div>
+                </div>
+                <table id="calendarContainer" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="6%">&nbsp;
+                            </th>
+                            <th width="12%">Montag
+                            </th>
+                            <th width="12%">Dienstag
+                            </th>
+                            <th width="12%">Mittwoch
+                            </th>
+                            <th width="12%">Donnerstag
+                            </th>
+                            <th width="12%">Freitag
+                            </th>
+                            <th width="12%">Samstag
+                            </th>
+                            <th width="12%">Sonntag
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: weeks()">
+                        <tr class="draggableRow" data-bind="foreach: days">
+                            <!-- ko if: $index() === 0 -->
+                            <th>
+                                <span>KW</span>
+                                <span class="weekNumber" data-bind="text: $parent.number"></span>
+                                <br />
+                                <!-- ko if: $parent.weekNumberToNextGoal() > 0 -->
+                                - <span data-bind="text: $parent.weekNumberToNextGoal"></span>
+                                <!-- /ko -->
+                                <!-- ko if: $parent.weekNumberToNextGoal() == 0 -->
+                                <img src="@Url.Content("~/Content/images/flag_blue.png")" />
+                                <!-- /ko -->
+
+                                Phase:
+                                <!-- ko ifnot: $parent.phase -->
+                                <span data-bind="attr: { 'id': 'phase_' + $parent.number }" class="phaseText">Keine
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: $parent.phase -->
+                                <span data-bind="attr: { 'id': 'phase_' + $parent.number }, text: $parent.phase" class="phaseText"></span>
+                                <!-- /ko -->
+                                <br />
+                            </th>
+                            <!-- /ko -->
+                            <td class="dayContainer" data-bind="attr: { 'id': clientId }, css: { currentDay: isDayToday }, event: { mouseover: showAddMenu, mouseout: hideAddMenu }">
+                                <div class="dayHeader" data-bind="css: { 'isDayInMonth': isDayInMonth }">
+                                    <div class="day calendarDay">
+                                        <div data-bind="text: currentDay" />
+                                    </div>
+                                    <!-- ko if: isGoalToday -->
+                                    <img src="@Url.Content("~/Content/images/flag_blue.png")" data-bind="attr: { 'title': goalName }" />
+                                    <!-- /ko -->
+                                    <a class="aCreate" title="Neuer Eintrag" data-bind="visible: showMenu, attr: { 'href': createNewSesssionLink }">
+                                        <img class="showDetails" src="@Url.Content("~/Content/images/add.png")" />
+                                    </a>
+                                </div>
+                                <div class="dayContent" id="DayContent" data-bind="sortable: { data: sessions, afterMove: $parent.updateSession }">
+                                    <div data-bind="event: { mouseover: showItemMenu, mouseout: hideItemMenu }, attr: { 'class': 'Exercise Exercise_' + zoneId() } ">
+                                        <span data-bind="attr: { 'class': 'logo logo_' + discipline() }"></span>
+
+                                        <ul>
+                                            <li data-bind="text: durationWithUnit" />
+                                            <li data-bind="text: distanceWithUnit"></li>
+                                            <li data-bind="text: heartrateWithUnit"></li>
+                                            <li data-bind="text: zoneName"></li>
+                                        </ul>
+                                        <div class="itemMenu" data-bind="visible: showMenu">
+                                            <a class="copyButton" data-bind="click: $parent.copySession">
+                                                <img src="@Url.Content("~/Content/images/page_copy.png")" />
+                                            </a>
+                                            <a class="deleteButton" data-bind="click: $parent.deleteSession, attr: { 'href': 'Delete/' + sessionId() }">
+                                                <img src="@Url.Content("~/Content/images/delete.png")" title="Einheit löschen?"/>
+                                            </a>
+                                            <a class="adetailsModal" data-bind="attr: { 'href': 'Edit/' + sessionId() }">
+                                                <img src="@Url.Content("~/Content/images/pencil.png")" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <!-- ko if: $index() === 6 -->
+
+                            <td class="weeksummary">Wochensumme<br />
+                                (Geplant / Training)
+                            <ul class="weeksummary">
+                                <!-- ko foreach: $parent.weekSummary() -->
+                                <li>
+                                    <div data-bind="attr: { 'class': 'logo logo_' + discipline, 'title': discipline }"></div>
+                                    <div>
+                                        <div data-bind="text: plannedDurationInTime" class=""></div>
+                                        /
+                                        <div data-bind="text: durationInTime"></div>
+                                    </div>
+                                </li>
+                                <!-- /ko -->
+                                <li>
+                                    <div>(S)</div>
+                                    <div>
+                                        <div data-bind="text: $parent.allPlannedDurationInTime" class=""></div>
+                                        /
+                                        <div data-bind="text: $parent.allDurationInTime"></div>
+                                    </div>
+                                </li>
+                                @*@{
+                                int all = 0;
+                                int allPlanned = 0;
+                                foreach (SportWeekSummary weekSummary in week.WeekSummary)
+                                {
+                                    all += weekSummary.Duration;
+                                    allPlanned += weekSummary.PlannedDuration;
+                                   
+                                    <li>
+                                        <div class="logo @Html.Raw("logo_" + weekSummary.Discipline)" title="@weekSummary.Discipline"></div>
+                                        <div>
+                                            @(TimeSpan.FromMinutes(weekSummary.PlannedDuration).ToString(@"hh\:mm"))
+                                            /
+                                            @(TimeSpan.FromMinutes(weekSummary.Duration).ToString(@"hh\:mm"))
+                                        </div>
+                                    </li>
+                                }
+                                if (all > 0)
+                                {
+                                    <b>(S)&nbsp;@(TimeSpan.FromMinutes(allPlanned).ToString(@"hh\:mm"))
+                                        / @(TimeSpan.FromMinutes(all).ToString(@"hh\:mm"))</b>
+                                }
+                                }*@
+                            </ul>
+                            </td>
+                            <!-- /ko -->
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p>
+                </p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+
+    <script id="PhaseTemplate" type="text/x-jquery-tmpl">
+        <option value="${Key}">${Value}</option>
+    </script>
+    <script type="text/javascript">
+        var phases = [{ Key: '-1', Value: 'Keine' },
+
+        @foreach (PhaseView phase in Model.AllPhases)
+        {
+            <text>{ Key: '@phase.Id', Value: '@phase.ShortName' },</text>
+        }];
+        var mymonthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+        @{
+            var years = new List<int>();
+            for (int i = (DateTime.Now.Year + 5); i > 1910; i--)
+            {
+                years.Add(i);
+            }
+        }
+        var myyears = [@string.Join(", ", years)];
+
+        var calendarMode = "exercise";
+
+        $(document).ready(function () {
+            $(".Exercise").disableSelection();
+        });
+
+
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/model")
+
+}

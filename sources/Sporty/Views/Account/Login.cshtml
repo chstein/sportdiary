@@ -1,0 +1,44 @@
+﻿@model Sporty.Models.LoginModel
+
+@{
+    ViewBag.Title = "Anmelden";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="container">
+    <div class="page-header">
+        <h2>Anmelden</h2>
+    </div>
+    <p>
+        Gib bitte dein Benutzernamen und Passwort ein. Wenn du keinen hast, dann kannst
+    du dir hier einen @Html.ActionLink("anlegen", "Register")
+    </p>
+    <p>
+        Hast du dein Passwort vergessen, @Html.ActionLink("dann setze es hier zurück", "ResetPassword").
+    </p>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Benutzername</label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Benutzername" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Passwort</label>
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    Merken?
+                </label>
+                <button type="submit" class="btn">Anmelden</button>
+            </div>
+        </div>
+    }
+</div>

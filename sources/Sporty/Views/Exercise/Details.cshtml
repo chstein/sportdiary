@@ -1,0 +1,200 @@
+﻿@using Sporty.Common
+@using Sporty.ViewModel
+@model ExerciseDetailsView
+@{
+    ViewBag.Title = "Details der Einheit";
+    if (!IsAjax)
+    {
+        Layout = "~/Views/Shared/_Site.cshtml";
+    }
+}
+@System.Web.Optimization.Styles.Render("~/content/upload")
+<div id="dialog" title="Details der Einheit">
+    <div id="exerciseTabs">
+        <div class="editForm span5">
+            <div class="editDialog form-horizontal">
+                <div class="page-header">
+                    <h2>Einheit</h2>
+                </div>
+                <div class="control-group">
+                    <label for="Date" class="control-label">Datum / Zeit:</label>
+                    <div class="controls control-text">
+                        @Model.Date.ToString(CultureHelper.DefaultCulture)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="SportTypeId" class="control-label">
+                        Sportart:</label>
+                    <div class="controls control-text">
+                        @Model.SportTypeName
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="ZoneId" class="control-label">
+                        Zone:</label>
+                    <div class="controls control-text">
+                        @Model.ZoneName
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Duration" class="control-label">
+                        Dauer:</label>
+                    <div class="controls control-text">
+                        @Model.Duration.ToString()
+                        <small>[Minuten]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Distance" class="control-label">
+                        Distanz:</label>
+                    <div class="controls control-text">
+                        @(Model.Distance.HasValue ? Model.Distance.Value.ToString(CultureHelper.DefaultCulture) : "")
+                        <small>[km]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Speed" class="control-label">
+                        Geschwindigkeit:</label>
+                    <div class="controls control-text">
+                        @(Model.Speed.HasValue ? Model.Speed.Value.ToString("N1", CultureHelper.DefaultCulture) : null)
+                        <small>[km/h]</small>
+                        <span id="Pace"></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Trimp" class="control-label">
+                        Trimp:</label>
+                    <div class="controls control-text">
+                        @Model.Trimp
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Heartrate" class="control-label">
+                        Puls:</label>
+                    <div class="controls control-text">
+                        @Model.Heartrate
+                        <small>[bpm]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="TrainingTypeId" class="control-label">
+                        Trainingstyp:</label>
+                    <div class="controls control-text">
+                        @Model.TrainingTypeName
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Material" class="control-label">Material:</label>
+                    <div class="controls control-text">
+                        <ul class="simplelist">
+                            @foreach (var material in Model.UsedMaterials)
+                            {
+                                <li>@material.Name (@material.Milage km)</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Description" class="control-label">
+                        Notizen:</label>
+                    <div class="controls control-text">
+                        <p>
+                            @Model.Description
+                        </p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        Anh&auml;nge</label>
+                    <div class="attachmentList controls control-text" id="attachmentList">
+                        <ul class="simplelist">
+
+                            @if (Model.Attachments != null && Model.Attachments.Any())
+                            {
+                                foreach (AttachmentView attachment in Model.Attachments)
+                                {
+                                <li>
+                                    @attachment.Filename
+                                </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div id="ExerciseFormErrorSummary" class="error">
+                </div>
+            </div>
+
+        </div>
+        <div class="routeDialog span5">
+            <h2>Karte</h2>
+            <div id="map_canvas" style="height: 500px; width: 500px;">
+            </div>
+        </div>
+        <div class="chartDialog span8">
+            <h2>Auswertungen</h2>
+            <div id="chart">
+            </div>
+        </div>
+        <div class="lapDataDialog span5">
+            <h2>Runden</h2>
+            <table id="lapTable" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>Runde
+                        </td>
+                        <td>Länge
+                        </td>
+                        <td>Zeit
+                        </td>
+                        <td>Pace
+                        </td>
+                        <td>Avg. Puls
+                        </td>
+                        <td>Max. Puls
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="socialButtons span8">
+            <h2>Kommentar</h2>
+            @* <a href="mailto:subject=Einheit vom 1.1.1201?body=Daten" class="btn btn-mini">E-Mail</a>
+            <div class="fb-like" data-href="http://www.sportdiary.org" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.sportdiary.org" data-text="Meine Einheit" data-count="horizontal" data-via="steinisweb">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <g:plusone size="medium" href="http://www.sportdiary.org"></g:plusone>
+            <!-- Place this render call where appropriate -->
+            <script type="text/javascript">
+                (function () {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>*@
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/upload")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Pace").html($.convertNumberToTime("@Model.Pace.ToString("N2", System.Globalization.CultureInfo.InvariantCulture)") + " <small>[min/km]</small>");
+            //loadFacebook(document, 'script', 'facebook-jssdk');
+            @{var authKey = Request.QueryString["authkey"];
+              if (string.IsNullOrEmpty(authKey))
+              {
+                <text>loadMapsScript("@Url.Content("~/Exercise/GetExerciseData/" + Model.Id)");</text>
+              }
+              else
+              {
+                    <text>loadMapsScript("@Url.Content("~/Exercise/GetExerciseData/" + Model.Id + "?authkey=" + authKey)");</text>
+              }
+             }
+        });
+    </script>
+}

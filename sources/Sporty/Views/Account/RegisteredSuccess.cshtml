@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Registrierung erfolgreich";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<div class="container">
+    <div class="page-header">
+        <h2>Die Registrierung war erfolgreich</h2>
+    </div>
+    <p>
+        Es folgt eine E-Mail mit einen Aktivierungslink. Anschließend ist das Benutzerkonto aktiv und nutzbar. 
+        Viel Spaß!
+    </p>
+    <p>
+        @Html.ActionLink("Hier geht es zur Startseite...", "Index", "Home")
+    </p>
+</div>

@@ -1,0 +1,22 @@
+﻿@model Sporty.ViewModel.MaterialView
+
+<h2>L&ouml;schen</h2>
+
+<h3>M&ouml;chtest du das Ziel wirklich entfernen?</h3>
+<fieldset>
+    <div class="display-label">Datum</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Date)</div>
+        
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+        
+    <div class="display-label">Beschreibung</div>
+    <div class="display-field">@Model.Description</div>
+        
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="L&ouml;schen" /> |
+    </p>
+}

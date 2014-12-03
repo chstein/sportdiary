@@ -1,0 +1,57 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Dateien hochladen";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<link href="~/Content/fileuploader.css" rel="stylesheet" type="text/css">
+
+<h2>Upload</h2>
+<p>Zum Hochladen die Datei auswählen oder mit Drag & Drop (FF, Chrome) in das Fenster ziehen.</p>
+<div id="file-uploader-demo1">
+    <noscript>
+        <p>Für den Fileupload ist zwingend Javascript Voraussetzung.</p>
+        <!-- or put a simple form for upload here -->
+    </noscript>
+</div>
+
+@*<div class="qq-upload-extra-drop-area">Drop files here too</div>*@
+@section Scripts {
+    <script src="~/Scripts/fileuploader.js" type="text/javascript"></script>
+    <script>
+        function createUploader() {
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader-demo1'),
+                action: '@Url.Action("ExerciseUpload", "Upload")',
+                debug: true,
+                allowedExtensions: ['tcx', 'hrm', 'tur', 'gpx'],
+                text: {
+                    uploadButton: '<i class="icon-plus icon-white"></i> Dateien auswählen'
+                },
+                //extraDropzones: [qq.getByClass(document, 'qq-upload-extra-drop-area')[0]],
+
+                showMessage: function (message) {
+                    //console.log(message);
+                    // Using Bootstrap's classes and jQuery selector and DOM manipulation
+                    $('#restricted-fine-uploader').append('<div class="alert alert-error">' + message + '</div>');
+                },
+
+                onComplete: function (id, fileName, responseJSON) {
+                    //add edit link
+                    var exerciseId = responseJSON["id"];
+                    //id counter of li item
+                    var baseLink = "/Exercise/Edit/";
+                    $(".qq-upload-success > .qq-upload-file:contains(" + fileName + ")").parent()
+                        .append('<a class="btn btn-small" href="' + baseLink + exerciseId + '" title="Edit">Edit</a>');
+                }
+            });
+        }
+        $(document).ready(function () {
+
+            // in your app create uploader as soon as the DOM is ready
+            // don't wait for the window to load  
+            createUploader();
+        });
+    </script>
+}

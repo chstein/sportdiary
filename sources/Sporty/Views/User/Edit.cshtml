@@ -1,0 +1,430 @@
+﻿@using Sporty.ViewModel
+@model Sporty.ViewModel.UserProfileView
+@{
+    ViewBag.Title = "Benutzereinstellungen";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+<h2>Benutzereinstellungen</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { id = "DetailsForm", name = "DetailsForm" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.UserId)
+    <div id="usersettings" class="editDialog longinputs">
+        <ul>
+            <li><a href="#profile">Profil</a></li>
+            <li><a href="#passwordSettings">Passwort</a></li>
+            <li><a href="#sportTypes">Sportarten</a></li>
+            <li><a href="#zoneTypes">Zonen</a></li>
+            <li><a href="#trainingTypes">Trainingsarten</a></li>
+            <li><a href="#phases">Planungsphasen</a></li>
+        </ul>
+        <div id="profile">
+            <p>
+                <label for="Name">
+                    Benutzername:</label>
+                @Html.TextBox("Name", Model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </p>
+            <p>
+                <label for="Email">
+                    Email:</label>
+                @Html.TextBox("Email", Model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </p>
+            <p>
+                <label for="BodyHeight">
+                    Gr&ouml;&szlig;e:</label>
+                @Html.TextBox("BodyHeight", Model.BodyHeight)
+                @Html.ValidationMessageFor(model => model.BodyHeight)
+            </p>
+            <p>
+                <label for="MaxHeartrate">
+                    Maximaler Puls:</label>
+                @Html.TextBox("MaxHeartrate", Model.MaxHeartrate)
+                @Html.ValidationMessageFor(model => model.MaxHeartrate)
+            </p>
+            <p>
+                <label for="SendMetricsMail">
+                    Tägliche Erinnerung für Tageswerte per E-Mail:</label>
+                @Html.CheckBox("SendMetricsMail", Model.SendMetricsMail)
+                @*<input id="Time" class="input-mini" type="text" name="Time" 
+                                           value='@Model.DailyMetricsMailSendingTime.ToString("t", Sporty.Common.CultureHelper.DefaultCulture)' />
+               *@
+                 @Html.TextBox("DailyMetricsMailSendingTime", Model.DailyMetricsMailSendingTime,
+                    new { @class = "input-mini"})
+            </p>
+            <p>
+                <label for="CreateDate">
+                    Das Profil wurde erstellt am:</label>
+                @Html.Display("CreateDate", Model.CreateDate.ToShortDateString())
+            </p>
+        </div>
+        <div id="passwordSettings">
+            <p>
+                <label for="OldPassword">
+                    Altes Passwort:</label>
+                @Html.Password("OldPassword", null, new { autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.OldPassword)
+            </p>
+            <p>
+                <label for="NewPassword">
+                    Neues Passwort:</label>
+                @Html.Password("NewPassword", null, new { autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.NewPassword)
+            </p>
+            <p>
+                <label for="NewPasswordRepeat">
+                    Passwort wiederholen:</label>
+                @Html.Password("NewPasswordRepeat", null, new { autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.NewPasswordRepeat)
+            </p>
+        </div>
+        <div id="sportTypes">
+            <div id="sportTypesList">
+                <p>
+                    <label>
+                        Name</label>
+                    <label style="padding-left: 150px;">
+                        Sportart (Icon)</label>
+                </p>
+                @for (int i = 0; i < Model.SportTypes.Count(); i++)
+                {
+                    <p>
+                        @Html.HiddenFor(model => model.SportTypes[i].Id)
+                        @Html.HiddenFor(model => model.SportTypes[i].Discipline)
+                        @Html.TextBoxFor(model => model.SportTypes[i].Name)
+                        @{
+                    string sportTypeId = String.Format("SportTypes_{0}__Discipline", i);
+                    string sportTypeName = String.Format("SportTypes[{0}].Discipline", i);
+                        }
+                        <select id="@sportTypeId" name="@sportTypeName">
+                            @foreach (var allTypes in Model.AllDisciplines)
+                            {
+                                string sportTypeClass = String.Format("sportType{0}", Enum.GetName(typeof(Disciplines), allTypes.Key));
+                                if (Model.SportTypes[i].Discipline == allTypes.Key)
+                                {
+                                <option selected="selected" value="@allTypes.Key" class="sportTypes @sportTypeClass">
+                                    @allTypes.Value
+                                </option>
+                                }
+                                else
+                                {
+                                <option value="@allTypes.Key" class="sportTypes @sportTypeClass">
+                                    @allTypes.Value
+                                </option>
+                                }
+                            }
+                        </select>
+                    </p>
+                }
+            </div>
+            <input type="button" id="addSportType" value="+" />
+            <input type="button" id="removeSportType" value="-" />
+        </div>
+        <div id="zoneTypes">
+            <div id="zonesList">
+                <p>
+                    <label>
+                        Name</label>
+                    <label style="padding-left: 120px;">
+                        Zonen (Farben)</label>
+                </p>
+                @for (int i = 0; i < Model.Zones.Count(); i++)
+                {
+                    <p>
+                        @Html.HiddenFor(model => model.Zones[i].Id)
+                        @Html.TextBoxFor(model => model.Zones[i].Name)
+                        @{
+                    string zoneColorId = String.Format("Zones_{0}__Color", i);
+                    string zoneColorName = String.Format("Zones[{0}].Color", i);
+                        }
+                        <select id="@zoneColorId" name="@zoneColorName">
+                            @foreach (var allZone in Model.AllZones)
+                            {
+                                if (Model.Zones[i].Color == allZone.Key)
+                                {
+                                <option selected="selected" value="@allZone.Key" style="background-color: @allZone.Key">
+                                    @allZone.Value
+                                </option>
+                                }
+                                else
+                                {
+                                <option value="@allZone.Key" style="background-color: @allZone.Key">
+                                    @allZone.Value
+                                </option>
+                                }
+                            }
+                        </select>
+                    </p>
+                }
+            </div>
+            <input type="button" id="addZone" value="+" />
+            <input type="button" id="removeZone" value="-" />
+        </div>
+        <div id="trainingTypes">
+            <div id="trainingTypesList">
+                <p>
+                    <label>
+                        Name</label>
+                </p>
+                @for (int i = 0; i < Model.TrainingTypes.Count(); i++)
+                {
+                    <p>
+                        @Html.HiddenFor(model => model.TrainingTypes[i].Id)
+                        @Html.TextBoxFor(model => model.TrainingTypes[i].Name)
+                    </p>
+                }
+            </div>
+            <input type="button" id="addTrainingType" value="+" />
+            <input type="button" id="removeTrainingType" value="-" />
+        </div>
+        <div id="phases">
+            <div id="phasesList">
+                <p>
+                    <label>
+                        Name</label>
+                </p>
+                @for (int i = 0; i < Model.Phases.Count(); i++)
+                {
+                    <p>
+                        @Html.HiddenFor(model => model.Phases[i].Id)
+                        @Html.HiddenFor(model => model.Phases[i].Order, new { @class = "orderValue" })
+                        @Html.TextBoxFor(model => model.Phases[i].ShortName)
+                    </p>
+                }
+            </div>
+            <input type="button" id="addPhase" value="+" />
+            <input type="button" id="removePhase" value="-" />
+        </div>
+        <p>
+            <div id="messages">
+            </div>
+            <input type="submit" value="Save" />
+        </p>
+    </div>
+
+@*<form id="koForm" action='/someServerSideHandler'>
+    <p>
+        You have asked for <span data-bind='text: gifts().length'>&nbsp;</span> gift(s)</p>
+    <table data-bind='visible: gifts().length > 0'>
+        <thead>
+            <tr>
+                <th>
+                    Gift name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: gifts'>
+            <tr>
+                <td>
+                    <input class='required' data-bind='value: name, uniqueName: true' />
+                </td>
+                <td>
+                    <input class='required number' data-bind='value: price, uniqueName: true' />
+                </td>
+                <td>
+                    <a href='#' data-bind='click: $root.removeGift'>Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button data-bind='click: addGift'>
+        Add Gift</button>
+    <button data-bind='enable: gifts().length > 0' type='submit'>
+        Submit</button>
+    </form>*@
+}
+
+@section Scripts {
+    <script src="~/Scripts/jQuery.tmpl.min.js" type="text/javascript"> </script>
+    <script id="DisplineTemplate" type="text/x-jquery-tmpl">
+        <option value="${Key}" class="sportTypes sportType${Key}">${Value}</option>
+    </script>
+    <script id="ZoneTemplate" type="text/x-jquery-tmpl">
+        <option value="${Key}" style="background-color: ${Key}">${Value}</option>
+    </script>
+    <script type="text/javascript">
+        var sportTypes = [
+        @foreach (var displine in Model.AllDisciplines)
+        {
+            <text>{ Key: '@displine.Key', Value: '@displine.Value' },</text>
+        }
+        ];
+
+        var zones = [
+        @foreach (var zone in Model.AllZones)
+        {
+            <text>{ Key: '@zone.Key', Value: '@zone.Value' },</text>
+        }
+    ];
+
+    var validationRules = {
+        required: true,
+        minlength: 2,
+        messages: {
+            required: "*",
+            minlength: "*"
+        }
+    };
+
+    $(function () {
+
+        $("input:submit, input:button").button();
+
+        $("#usersettings").tabs();
+        var startindex;
+
+        $("#phasesList").sortable({
+            start: function (event, ui) {
+                // Get the start index so no database call 
+                //is made if item is dropped in the same order
+                startindex = ui.item.index() + 1;
+            },
+            stop: function (event, ui) {
+                //refresh ordervalues in compete list
+
+                //                        var newListIndex = ui.item.index() + 1;
+                //                        console.log(newListIndex);
+                //ui.item.children("input[type=hidden]:nth-child(2)").val(newListIndex);
+                //ui.item.children(".orderValue").val(newListIndex);
+                var index = 1;
+                $("#phasesList .orderValue").each(function () {
+                    console.log(index);
+                    $(this).val(index);
+                    index++;
+                });
+            }
+        });
+        //$( "#phasesList" ).disableSelection();
+
+        var inputSportTypesCounter = $('#sportTypesList > p > input:text').size() + 1;
+        var inputZonesCounter = $('#zonesList > p > input:text').size() + 1;
+        var inputTrainingTypesCounter = $('#trainingTypesList > p > input:text').size() + 1;
+        var inputPhaseCounter = $('#phasesList > p > input:text').size() + 1;
+
+        $("#addSportType").click(function () {
+            var selectId = "SportTypes_" + (inputSportTypesCounter - 1) + "__Discipline";
+            var inputId = "SportTypes_" + (inputSportTypesCounter - 1) + "__Name";
+            var control = '<p><input type="hidden" value="0" name="SportTypes[' + (inputSportTypesCounter - 1) + '].Id" id="SportTypes_' + (inputSportTypesCounter - 1) + '__Id">';
+            control += '<input type="text" id="' + inputId + '" name="SportTypes[' + (inputSportTypesCounter - 1) + '].Name">';
+            control += ' <select id="' + selectId + '" name="SportTypes[' + (inputSportTypesCounter - 1) + '].Discipline"></select>';
+            control += '</p>';
+
+            $(control).appendTo("#sportTypesList");
+            inputSportTypesCounter++;
+            console.log(selectId);
+            $("#DisplineTemplate").tmpl(sportTypes).appendTo("#" + selectId);
+
+            $("#" + inputId).rules("add", validationRules);
+        });
+        $("#removeSportType").click(function () {
+            if (inputSportTypesCounter > 1) {
+                $('#sportTypesList > p:last').remove();
+                inputSportTypesCounter--;
+            }
+        });
+
+        $("#DailyMetricsMailSendingTime").toggle($("#SendMetricsMail").is(':checked'));
+
+        $("#SendMetricsMail").click(function () {
+            $("#DailyMetricsMailSendingTime").toggle();
+        });
+
+        $("#addZone").click(function () {
+            var selectId = 'Zones_' + (inputZonesCounter - 1) + '__Color';
+
+            var control = '<p><input type="hidden" value="0" name="Zones[' + (inputZonesCounter - 1) + '].Id" id="Zones_' + (inputZonesCounter - 1) + '__Id">';
+            control += '<input type="text" id="Zones_' + (inputZonesCounter - 1) + '__Name" name="Zones[' + (inputZonesCounter - 1) + '].Name">';
+            control += ' <select id="' + selectId + '" name="Zones[' + (inputZonesCounter - 1) + '].Color">';
+            control += ' </select>';
+            control += '</p>';
+            $(control).appendTo("#zonesList");
+            inputZonesCounter++;
+
+            $("#ZoneTemplate").tmpl(zones).appendTo("#" + selectId);
+
+            $("#Zones_" + (inputZonesCounter - 1) + "__Name").rules("add", validationRules);
+        });
+        $("#removeZone").click(function () {
+            if (inputZonesCounter > 1) {
+                $('#zonesList > p:last').remove();
+                inputZonesCounter--;
+            }
+        });
+
+        $("#addTrainingType").click(function () {
+            var control = '<p><input type="hidden" value="0" name="TrainingTypes[' + (inputTrainingTypesCounter - 1) + '].Id" id="TrainingTypes_' + (inputTrainingTypesCounter - 1) + '__Id">';
+            control += '<input type="text" id="TrainingTypes_' + (inputTrainingTypesCounter - 1) + '__Name" name="TrainingTypes[' + (inputTrainingTypesCounter - 1) + '].Name">';
+            control += '</p>';
+            $(control).appendTo("#trainingTypesList");
+            $("#TrainingTypes_" + (inputTrainingTypesCounter - 1) + "__Name").rules("add", validationRules);
+            inputTrainingTypesCounter++;
+        });
+        $("#removeTrainingType").click(function () {
+            if (inputTrainingTypesCounter > 1) {
+                $('#trainingTypesList > p:last').remove();
+                inputTrainingTypesCounter--;
+            }
+        });
+        $("#addPhase").click(function () {
+            var control = '<p><input type="hidden" value="0" name="Phases[' + (inputPhaseCounter - 1) + '].Id" id="TrainingTypes_' + (inputPhaseCounter - 1) + '__Id">';
+            control += '<input type="hidden" id="Phases_' + (inputPhaseCounter - 1) + '__Order" name="Phases[' + (inputPhaseCounter - 1) + '].Order">';
+            control += '<input type="text" id="Phases_' + (inputPhaseCounter - 1) + '__ShortName" name="Phases[' + (inputPhaseCounter - 1) + '].ShortName">';
+            control += '</p>';
+            $(control).appendTo("#phasesList");
+            $("#Phases_" + (inputPhaseCounter - 1) + "__ShortName").rules("add", validationRules);
+            inputPhaseCounter++;
+            $("#phasesList").sortable("refresh");
+        });
+        $("#removePhase").click(function () {
+            if (inputPhaseCounter > 1) {
+                $('#trainingTypesList > p:last').remove();
+                inputPhaseCounter--;
+            }
+            $("#phasesList").sortable("refresh");
+        });
+        $("#DetailsForm").validate();
+
+        $("#trainingTypes input:text, #sportTypes input:text, #zoneTypes input:text").each(function () {
+            $(this).rules("add", validationRules);
+        });
+
+        $('#DailyMetricsMailSendingTime').timepicker({
+            timeFormat: 'hh:mm',
+            stepHour: 1,
+            stepMinute: 10,
+            hourGrid: 4,
+            minuteGrid: 10,
+            alwaysSetTime: true,
+            showButtonPanel: false
+        });
+        $.timepicker.setDefaults($.timepicker.regional['de']);
+
+        $("#DetailsForm").submit(function () {
+
+            //var $form = $(btnClicked).parents('form');
+            if ($(this).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    error: function (xhr, status, error) {
+                        //do something about the error
+                    },
+                    success: function (response) {
+                        //do something with response
+                        $("#messages").html(response.Message);
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
+    </script>
+}

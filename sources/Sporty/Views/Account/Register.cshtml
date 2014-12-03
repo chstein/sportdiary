@@ -1,0 +1,50 @@
+﻿@model Sporty.Models.RegisterModel
+@{
+    ViewBag.Title = "Registrierung";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<div class="container">
+    <div class="page-header">
+        <h2>Neues Konto anlegen</h2>
+    </div>
+    <p>
+        Nur noch wenige Eingaben und schon kann es losgehen...
+    </p>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Benutzername</label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Benutzername" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Passwort</label>
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Passwort" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="confirmPassword">Passwort wiederholen</label>
+            <div class="controls">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Passwort wiederholen" })
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Registrieren</button>
+            </div>
+        </div>
+
+    }
+</div>

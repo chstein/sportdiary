@@ -1,0 +1,17 @@
+﻿<div id="footer" class="footer">
+    <div class="container">
+        <p>
+            &copy; Copyright Sportdiary.org
+                        @DateTime.Now.Year , Version
+                        @System.Reflection.Assembly.GetAssembly(typeof(Sporty.Controllers.ExerciseController)).GetName().Version.ToString()
+            @*vom @File.GetCreationTime(Assembly.GetExecutingAssembly().Location).ToString(CultureHelper.DefaultCulture)*@
+        </p>
+        <ul class="footer-links">
+            <li>
+                @Html.ActionLink("Impressum", "Imprint", "Home")</li>
+            <li><a href="http://blog.sportdiary.org/index.php/danke/" target="_blank">Danksagung</a></li>
+
+        </ul>
+        <p class="pull-right"><a href="#">Nach oben</a></p>
+    </div>
+</div>

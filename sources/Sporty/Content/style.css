@@ -1,0 +1,350 @@
+﻿.subnav {
+    padding-top: 80px;
+}
+
+.showDetails {
+    float: right;
+    position: relative;
+}
+
+#calendarview table {
+    line-height: 1.1em;
+    font-size: small;
+}
+
+#calendarview .currentDay {
+    background-color: #FDFFD5;
+}
+
+#calendarview .dayContainer ul,
+#planslider .dayContainer ul,
+#planview ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#calendarview .dayContainer li #planslider .dayContainer li {
+    line-height: 12px;
+}
+
+#calendarview li,
+#planview li {
+    line-height: 11px;
+}
+
+#calendarview .dayContainer,
+#planslider .dayContainer {
+    height: 100%;
+    vertical-align: top;
+}
+
+#calendarview .dayDate {
+    height: 20px;
+    left: 10px;
+    position: relative;
+    top: 10px;
+    width: 20px;
+}
+
+#calendarview .dayNotInMonth {
+    color: #C0C0C0;
+    height: 20px;
+    left: 10px;
+    position: relative;
+    top: 10px;
+    width: 20px;
+}
+
+#calendarview .Exercise,
+#planslider .Exercise {
+    border: 3px solid #ccc;
+    float: left;
+    padding: 4px;
+    position: relative;
+    width: 90%; /*height: 20px;*/
+    font-size: 10px;
+}
+
+
+#calendarview .weekContainer {
+    height: 80px;
+    width: 100%;
+}
+
+#calendarview .weeknumber {
+    float: left;
+    height: 100%;
+    width: 40px;
+}
+
+#calendarview .weeksummary {
+    font-size: smaller;
+}
+
+    #calendarview .weeksummary ul {
+        left: 0px;
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+        position: relative;
+    }
+
+    #calendarview .weeksummary li {
+        line-height: 22px;
+    }
+    #calendarview .weeksummary li div{
+        display: inline;
+    }
+
+.Exercise_1 {
+    background-color: #ff7878;
+}
+
+.Exercise_2 {
+    background-color: #e6e600;
+}
+
+.Exercise_3 {
+    background-color: #ff7878;
+}
+
+.Exercise_4 {
+    background-color: #e6e600;
+}
+
+.Exercise_5 {
+    background-color: #ff7878;
+}
+
+.edit_Exercise {
+    background-color: #eeeeee;
+    bottom: 2px;
+    display: none;
+    position: absolute;
+    right: 5px;
+}
+
+.itemMenu {
+    background-color: #eeeeee;
+    bottom: 1px;
+    position: absolute;
+    right: 1px;
+}
+
+    .itemMenu img {
+        display: inline;
+        float: left;
+    }
+
+.logo {
+    background-repeat: no-repeat;
+    display: inline;
+    float: left;
+    height: 16px;
+    padding: 3px;
+    width: 16px;
+}
+
+.logo_Running {
+    background-image: url("/Content/images/run.png");
+    background-repeat: no-repeat;
+}
+
+.logo_Athletics {
+    background-image: url("/Content/images/run.png");
+    background-repeat: no-repeat;
+}
+
+.logo_Other {
+    background-image: url("/Content/images/run.png");
+    background-repeat: no-repeat;
+}
+
+.logo_Swimming {
+    background-image: url("/Content/images/swim.png");
+    background-repeat: no-repeat;
+}
+
+.logo_Biking {
+    background-image: url("/Content/images/cycle.png");
+    background-repeat: no-repeat;
+}
+
+#calendarview .isFavorite {
+    background-repeat: no-repeat;
+    height: 16px;
+    left: 2px;
+    position: absolute;
+    top: 20px;
+    width: 16px;
+}
+
+#calendarview .dayContent {
+    float: left;
+    position: relative;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+#calendarview .calendarDay,
+#calendarview .calendarDay div {
+    display: inline;
+}
+
+.reportFilter {
+    clear: both;
+}
+
+.calendarTitle {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.favTitle {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.slider {
+    border: 1px solid #A6C9E2;
+    color: #222222;
+    display: inline-block;
+    width: 150px;
+}
+
+.sliderText {
+    border: 0 !important;
+    font-weight: normal;
+    width: 120px !important;
+}
+
+.sleepQualitySlider, .sickSlider {
+    background-image: linear-gradient(left, #FFFFFF 6%, #FF0000 25%, #FFFF00 60%, #00FF00 100%);
+    background-image: -o-linear-gradient(left, #FFFFFF 6%, #FF0000 25%, #FFFF00 60%, #00FF00 100%);
+    background-image: -moz-linear-gradient(left, #FFFFFF 6%, #FF0000 25%, #FFFF00 60%, #00FF00 100%);
+    background-image: -webkit-linear-gradient(left, #FFFFFF 6%, #FF0000 25%, #FFFF00 60%, #00FF00 100%);
+    background-image: -ms-linear-gradient(left, #FFFFFF 6%, #FF0000 25%, #FFFF00 60%, #00FF00 100%);
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.06, #FFFFFF), color-stop(0.25, #FF0000), color-stop(0.6, #FFFF00), color-stop(1, #00FF00));
+}
+
+.stressLevelSlider {
+    background-image: linear-gradient(left, #FFFFFF 6%, #00FF00 25%, #FFFF00 60%, #FF0000 100%);
+    background-image: -o-linear-gradient(left, #FFFFFF 6%, #00FF00 25%, #FFFF00 60%, #FF0000 100%);
+    background-image: -moz-linear-gradient(left, #FFFFFF 6%, #00FF00 25%, #FFFF00 60%, #FF0000 100%);
+    background-image: -webkit-linear-gradient(left, #FFFFFF 6%, #00FF00 25%, #FFFF00 60%, #FF0000 100%);
+    background-image: -ms-linear-gradient(left, #FFFFFF 6%, #00FF00 25%, #FFFF00 60%, #FF0000 100%);
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.06, #FFFFFF), color-stop(0.25, #00FF00), color-stop(0.6, #FFFF00), color-stop(1, #FF0000));
+}
+
+.motivationSlider, .moodSlider, .yesterdaysTrainingSlider {
+    background-image: linear-gradient(left, #FFFFFF 6%, #FF0000 15%, #FFFF00 50%, #00FF00 100%);
+    background-image: -o-linear-gradient(left, #FFFFFF 6%, #FF0000 15%, #FFFF00 50%, #00FF00 100%);
+    background-image: -moz-linear-gradient(left, #FFFFFF 6%, #FF0000 15%, #FFFF00 50%, #00FF00 100%);
+    background-image: -webkit-linear-gradient(left, #FFFFFF 6%, #FF0000 15%, #FFFF00 50%, #00FF00 100%);
+    background-image: -ms-linear-gradient(left, #FFFFFF 6%, #FF0000 15%, #FFFF00 50%, #00FF00 100%);
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.06, #FFFFFF), color-stop(0.15, #FF0000), color-stop(0.5, #FFFF00), color-stop(1, #00FF00));
+}
+
+#ui-datepicker-div {
+    display: none;
+}
+
+.dashboard #training ul {
+    list-style-type: none;
+}
+
+.footer {
+    background-color: #F5F5F5;
+    border-top: 1px solid #E5E5E5;
+    margin-top: 30px;
+    padding: 30px 0;
+}
+
+    .footer p {
+        margin: 0 10px 10px;
+    }
+
+
+.metricsinfo {
+    background: url("/Content/images/metrics.png") no-repeat scroll 0 0 transparent;
+}
+
+.uploadinfo {
+    background: url("/Content/images/upload.png") no-repeat scroll 0 0 transparent;
+}
+
+.calendarinfo {
+    background: url("/Content/images/calendar.png") no-repeat scroll 0 0 transparent;
+}
+
+.span4 i {
+    display: block;
+    width: 300px;
+    height: 129px;
+}
+
+.home {
+    background: url("/Content/images/start.jpg") no-repeat scroll center 80px;
+}
+
+.hero-unit {
+    background: none;
+    height: 400px;
+}
+
+.home .hero-unit .btn {
+    margin-top: 15px;
+    padding: 12px 32px;
+}
+
+#phasesList {
+    width: 55px;
+}
+
+.Plan {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.control-text {
+    padding-top: 5px;
+}
+
+.simplelist {
+    list-style: none;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer-links {
+    margin: 10px 0;
+}
+
+    .footer-links li {
+        display: inline;
+        padding: 0 2px;
+    }
+
+/*ddSelect Wert wird überschrieben Wetterauswahl*/
+.dd-selected {
+    padding: 0 !important;
+}
+
+.dd-option {
+    padding: 0 !important;
+}
+
+    .dd-container a:hover {
+        text-decoration: none !important;
+    }
+
+#yearList {
+    height: 200px;
+    overflow: auto;
+}

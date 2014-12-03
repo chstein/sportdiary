@@ -1,0 +1,39 @@
+﻿@using MvcContrib.UI.Grid;
+@using MvcContrib.UI.Pager;
+@using MvcContrib.Pagination
+@using Sporty.Common
+@using Sporty.ViewModel
+@using Sporty.Helper;
+@model IEnumerable<MetricListView>
+@{
+    ViewBag.Title = "Übersicht der Tageswerte";
+}
+
+<div id="tableInfo" class="row">
+    @Html.Grid(Model).Columns(column =>
+                                        {
+                                            column.Custom(
+                                                @<div>
+                                                     <a class="ametricModal" href="@Url.Action("Edit", "Metric", new {item.Id})">
+                                                         <img src="@Url.Content("~/Content/images/pencil.png")" class="ExerciseDetails" alt="Details" /></a>
+                                                    <a class="deleteButton" href="@Url.Action("Delete", "Metric", new {item.Id})"  title="Tageswert löschen?">
+                                                             <img src="@Url.Content("~/Content/images/delete.png")" class="ExerciseDelete" alt="L&ouml;schen" /></a>
+                                                 </div>
+                                                ).Sortable(false).Attributes(@style => "width: 40px;");
+                                            column.For(m => m.Date.ToString("d", CultureHelper.DefaultCulture)).Named("Datum").SortColumnName("Date");
+                                            column.For(m => m.Weight).Named("Gewicht");
+                                            column.For(m => m.RestingPulse).Named("Ruhepuls");
+                                            column.For(m => m.SleepDuration).Named("Schlafdauer");
+                                            column.For(m => m.SleepQuality).Named("Schlafqualität");
+                                            column.For(m => m.StressLevel).Named("Stresslevel");
+                                            column.For(m => m.Motivation).Named("Motivation");
+                                            column.For(m => m.Mood).Named("Grundgefühl");
+                                            column.For(m => m.Sick).Named("Krankheit");
+                                            column.For(m => m.YesterdaysTraining).Named("Gestriges Training");
+                                            column.For(m => (m.Description != null && m.Description.Length > 30 ?
+                                                                                                                    String.Format("{0}...", m.Description.Substring(0, 30)) : m.Description))
+                                                .Named("Beschreibung").SortColumnName("Description");
+                                        }).Sort(ViewData["sort"] as GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover")
+
+    @Html.BootstrapPager((IPagination<MetricListView>) Model)
+</div>
