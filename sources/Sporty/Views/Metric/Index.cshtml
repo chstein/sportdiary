@@ -1,0 +1,126 @@
+﻿@using Sporty.Common
+@model IEnumerable<Sporty.ViewModel.MetricView>
+@{
+    ViewBag.Title = "Übersicht der Tageswerte";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+<div class="container">
+    <h3>Deine Tageswerte</h3>
+    
+    <div id="searchBox" class="row form-inline">
+        <label for="fromDate">von: </label>
+        @Html.TextBox("fromDate", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("d", CultureHelper.DefaultCulture), new { @class = "input-small" })
+
+        <label for="toDate">bis: </label>
+        @Html.TextBox("toDate", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("d", CultureHelper.DefaultCulture), new { @class = "input-small" })
+        @Html.ActionLink("Neuer Tageswert", "Create", null, new { @class = "btn", title = "Neuen Tageswert anlegen" })
+        <div class="pull-right">
+            <input type="text" id="search" name="search" value="" class="input-medium search-query" />
+            <input type="button" id="searchBtn" title="Suche" class="btn" value="Suche" />
+        </div>
+        <div id="ajaxResult"></div>
+    </div>
+    <div id="dataTable">
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $gridHolder = "#dataTable";
+        $(document).ready(function () {
+
+            var currentParams;
+            //$("a.ametricModal").on("click", function(event) { showDetails(this, event, "#tableInfo"); });
+            $("a.ametricCreate").on("click", function (event) { showDetails(this, event, "#tableInfo"); });
+            $("#searchBtn").on("click", function (event) {
+                //start search
+                if ($("#search").val().length > 2) {
+                    var search = "&search=" + $("#search").val();
+                    event.preventDefault();
+                    $($gridHolder).load($.getCurrentListUrl(), search);
+                    ajaxPaging();
+                }
+            });
+
+            $(".deleteButton").on("click", function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var $msg = $(this).attr("title");
+
+                bootbox.confirm($msg, function (result) {
+                    if (result) {
+                        deleteRow($btn, function () {
+                            //update data table
+                            $.updateTableData(currentParams);
+                        });
+                    }
+                });
+            });
+
+            $($gridHolder).load($.getCurrentListUrl(), null, function () {
+                $(".pagination > ul > li > a").on("click", function (event) {
+                    //paging
+                    event.preventDefault();
+                    if (this.href.indexOf("?") > 0) {
+                        currentParams = this.href.split("?")[1];
+                    }
+                    $($gridHolder).load(this.href);
+                    ajaxPaging();
+                });
+                $(".table > thead > tr > th > a").on("click", function (event) {
+                    //call sorting
+                    event.preventDefault();
+                    if (this.href.indexOf("?") > 0) {
+                        currentParams = this.href.split("?")[1];
+                    }
+                    $($gridHolder).load(this.href);
+                    ajaxPaging();
+                });
+            });
+
+            $("#fromDate").datepicker(
+                {
+                    showWeek: true,
+                    firstDay: 1
+                });
+            $("#toDate").datepicker(
+                {
+                    showWeek: true,
+                    firstDay: 1
+                });
+            $("#fromDate").change(function () {
+                $.updateTableData(currentParams);
+            });
+            $("#toDate").change(function () {
+                $.updateTableData(currentParams);
+            });
+        });
+        /* end document.ready() */
+
+        $.updateTableData = function (currentParams) {
+            var url = $.getCurrentListUrl();
+            var delimiter = "?";
+            if (url.indexOf("?") > -1) {
+                delimiter = "&";
+            }
+            var path = url + delimiter + currentParams;
+            $($gridHolder).load(path);
+        };
+
+        $.getCurrentListUrl = function () {
+            return '@Url.Action("List", "Metric")' + "?from=" + $("#fromDate").val() + "&to=" + $("#toDate").val();
+    };
+
+    function ajaxPaging() {
+        //this will zero in on the needed <a> elements in the Grid
+        $(".pagination > ul > li > a")
+            .click(function (event) {
+                event.preventDefault();
+                $($gridHolder).load(this.href, null, function () {
+                    //call the function recursively so that the same code would run when the user click on the pagination links after the loading happens
+                    ajaxPaging();
+                });
+            });
+    }
+    </script>
+}

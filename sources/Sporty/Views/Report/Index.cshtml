@@ -1,0 +1,521 @@
+﻿@using Sporty.Common
+@model Sporty.ViewModel.ReportHeader
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+@Html.Hidden("CurrentMonth", Model.Month)
+@Html.Hidden("CurrentYear", Model.Year)
+<input id="Date" type="hidden" name="Date" />
+<div class="container">
+    <h3>Deine Auswertungen</h3>
+    
+    <div id="searchBox" class="row form-inline">
+        <div class="span8">
+            <label for="fromDate" class="">Von: </label>
+            @Html.TextBox("fromDate", new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("d"), new { @class = "input-smaller" })
+
+            <label for="toDate">bis: </label>
+            @Html.TextBox("toDate", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("d"), new { @class = "input-smaller" })
+
+            <input type="button" id="UpdateReport" name="UpdateReport" value="Aktualisieren" class="btn" />
+        </div>
+        <div class="span3">
+            <label for="timeUnitSelect">
+                Zeit Einheit</label>
+            <div class="btn-group" data-toggle="buttons-radio" id="timeUnitSelect">
+                <button type="button" class="btn active" value="1">Tag</button>
+                <button type="button" class="btn" value="2">Woche</button>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs" id="charts">
+        <li class="active"><a href="#durationTab" data-toggle="tab">Dauer</a></li>
+        <li><a href="#heartrateTab" data-toggle="tab">Puls</a></li>
+        <li><a href="#metricTab" data-toggle="tab">Tageswerte</a></li>
+        <li><a href="#trainingTab" data-toggle="tab">Training</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="durationTab" class="tab-pane active">
+            <div id="durationChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+            <br />
+            <br />
+            <div id="durationAllChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+        </div>
+        <div id="heartrateTab" class="tab-pane active">
+            <div id="heartrateChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+            <br />
+            <br />
+            <div id="heartrateAllChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+        </div>
+        <div id="metricTab" class="tab-pane active">
+            <div id="metricChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+            <br />
+            <br />
+            <div id="metricAllChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+        </div>
+        <div id="trainingTab" class="tab-pane active">
+            <div id="trainingChart" style="height: 400px; margin: 0 auto; min-width: 800px; width: 80%;">
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var callData = function (from, to, timeUnit, reportType) {
+            var params = from + "/" + to + "/" + timeUnit + "/" + reportType;
+            $.getJSON('/Report/Report/' + params, function (data) {
+                var durationOptions = {
+                    chart: {
+                        renderTo: 'durationChart',
+                        defaultSeriesType: 'column'
+                    },
+                    title: {
+                        text: 'Dauer der Einheiten'
+                    },
+                    xAxis: {
+                        categories: []
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'in Minuten'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        backgroundColor: '#FFFFFF',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 100,
+                        y: 20,
+                        floating: true,
+                        shadow: true,
+                        borderWidth: 0
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '' +
+                                this.x + '. : ' + this.y + ' Min';
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0,
+                            borderWidth: 0
+                        }
+                    },
+                    series: []
+                };
+
+                var heartrateOptions = {
+                    chart: {
+                        renderTo: 'heartrateChart',
+                        defaultSeriesType: 'column'
+                    },
+                    title: {
+                        text: 'Puls pro Sportart'
+                    },
+                    xAxis: {
+                        categories: []
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Puls in bpm'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        backgroundColor: '#FFFFFF',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 100,
+                        y: 20,
+                        floating: true,
+                        shadow: true,
+                        borderWidth: 0
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '' +
+                                this.x + '. : ' + this.y + ' bpm';
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0,
+                            borderWidth: 0
+                        }
+                    },
+                    series: []
+                };
+
+                var metricOptions = {
+                    chart: {
+                        renderTo: 'metricChart',
+                        defaultSeriesType: 'column'
+                    },
+                    title: {
+                        text: 'Tageswerte / Erholungsindex'
+                    },
+                    xAxis: {
+                        categories: []
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Erholungsindex'
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        backgroundColor: '#FFFFFF',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 100,
+                        y: 20,
+                        floating: true,
+                        shadow: true,
+                        borderWidth: 0
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '' +
+                               this.x + '. : ' + this.key + ' ';
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0,
+                            borderWidth: 0
+                        }
+                    },
+                    series: []
+                };
+
+                var sleepQualityData = ["", "Grauenhaft", "Schlecht", "Geht so", "Durchschnitt", "Gut", "Sehr gut", "Genial"];
+                var stressLevelData = ["", "Kein Stress", "Sehr wenig", "Wenig", "Durchschnitt", "Viel", "Sehr viel", "Extrem"];
+                var motivationData = ["", "Extrem Unmotiviert", "Ziemlich unmotiviert", "Unmotiviert", "Wenig begeistert",
+                    "Unterm Schnitt", "Überm Schnitt", "Begeistert", "Motiviert", "Gut Motiviert", "Top motiviert", "Absolut Begeistert"];
+                var moodData = ["", "Niedergeschlagen", "Normal", "Besser als Normal"];
+                var sickData = ["", "Völlig krank", "Ziemlich krank", "Krank", "Gesund", "Sehr gesund", "Superman"];
+                var yesterdaysTrainingData = ["", "Schwere Glieder", "Normal", "Leicht", "Ruhetag"];
+
+                var trainingOptions = {
+                    chart: {
+                        renderTo: 'trainingChart',
+                        defaultSeriesType: 'column'
+                    },
+                    title: {
+                        text: 'Trainingsbelastung'
+                    },
+                    xAxis: {
+                        categories: []
+                    },
+                    yAxis: [{
+                        //min: 0,
+                        title: { text: 'Trimp' },
+                        gridLineWidth: 0,
+                        //labels: { enabled: false },
+                        startOnTick: false,
+                        endOnTick: false
+                        //max: (chartData.series["ELEVATION"]) ? chartData.series["ELEVATION"].maxValY + ((chartData.series["ELEVATION"].maxValY - chartData.series["ELEVATION"].minValY) * 0.15) : null,
+                        //min: (chartData.series["ELEVATION"]) ? chartData.series["ELEVATION"].minValY : null
+                    },
+                    {
+                        gridLineWidth: 0,
+                        title: { text: "CTL / ATL" },
+                        //labels: { enabled: false },
+                        maxPadding: 0.15,
+                        opposite: true
+                    },
+                    {
+                        gridLineWidth: 1,
+                        title: { text: "TSB" },
+                        //labels: { enabled: false },
+                        startOnTick: false,
+                        endOnTick: false,
+                        opposite: true
+                    }],
+                    legend: {
+                        layout: 'vertical',
+                        backgroundColor: '#FFFFFF',
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 100,
+                        y: 20,
+                        floating: true,
+                        shadow: true,
+                        borderWidth: 0
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    //tooltip: {
+                    //    formatter: function () {
+                    //        return 'Trimp: ' +
+                    //            this.x + '. : ' + this.y;
+                    //    }
+                    //},
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0,
+                            borderWidth: 0
+                        },
+                        line: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    series: []
+                };
+
+
+
+                var dataseries = [];
+
+                var reportTypeName = 1;
+                $.each(data, function (key, val) {
+                    reportTypeName = val.ReportTypeName;
+                    if (reportTypeName == 1) {
+                        durationOptions.xAxis.categories.push(val.TimeUnitValue);
+                    } else if (reportTypeName == 2) {
+                        heartrateOptions.xAxis.categories.push(val.TimeUnitValue);
+                    } else if (reportTypeName == 7) {
+                        metricOptions.xAxis.categories.push(val.TimeUnitValue);
+                    } else if (reportTypeName == 9) {
+                        trainingOptions.xAxis.categories.push(val.TimeUnitValue);
+                    }
+                    $.each(val.DataPoints, function (dkey, dval) {
+
+                        //nur für ersten tag
+                        if (key == 0) {
+                            //dataseries.push({ name: '', data: { y: [], name: [] } });
+                            dataseries.push({ name: '', data: [], textlabel: [] });
+                            dataseries[dkey].name = dval.SportTypeName;
+                        }
+                        dataseries[dkey].data.push(parseFloat(dval.Value));
+                        dataseries[dkey].textlabel.push(dval.Label);
+                    });
+                });
+                if (reportTypeName == 1) {
+                    //Daten einlesen
+                    $.each(dataseries, function (key, val) {
+                        durationOptions.series.push(dataseries[key]);
+                    });
+
+                    var dchart = new Highcharts.Chart(durationOptions);
+                    //Gesamt Chart
+                    $.each(dataseries, function (key, val) {
+                        durationOptions.chart.renderTo = 'durationAllChart';
+                        durationOptions.title.text = "Dauer Gesamt";
+                        durationOptions.plotOptions.column.stacking = "normal";
+                    });
+                    var dAllchart = new Highcharts.Chart(durationOptions);
+                } else if (reportTypeName == 2) {
+                    $.each(dataseries, function (key, val) {
+                        heartrateOptions.series.push(dataseries[key]);
+                    });
+                    var hchart = new Highcharts.Chart(heartrateOptions);
+
+                } else if (reportTypeName == 7) {
+                    $.each(dataseries, function (key, val) {
+                        var newData = [];
+                        for (var i = 0; i < dataseries[key].data.length ; i++) {
+                            var temp = { y: dataseries[key].data[i], name: dataseries[key].textlabel[i] };
+                            if (key == 0) {
+                                temp.name = temp.name + " kg";
+                            }
+                            else if (key == 1) {
+                                temp.name = temp.name + " /min";
+                            }
+                            else if (key == 2) {
+                                temp.name = temp.name + " h";
+                            }
+                            else if (key == 3) {
+                                temp.name = "Schlafqualität: " + sleepQualityData[temp.name];
+                            }
+                            else if (key == 4) {
+                                temp.name = "Stress: " + stressLevelData[temp.name];
+                            }
+                            else if (key == 5) {
+                                temp.name = "Motivation: " + motivationData[temp.name];
+                            }
+                            else if (key == 6) {
+                                temp.name = "Gefühl: " + moodData[temp.name];
+                            }
+                            else if (key == 7) {
+                                temp.name = "Krank: " + sickData[temp.name];
+                            }
+                            else if (key == 8) {
+                                temp.name = "Gestriges Training: " + yesterdaysTrainingData[temp.name];
+                            }
+                            newData.push(temp);
+                        }
+                        var data = { data: newData };
+                        metricOptions.series.push(data);
+                        metricOptions.plotOptions.column.stacking = "normal";
+                        if (key == 0) {
+                            metricOptions.series[key].name = "Gewicht";
+                        }
+                        else if (key == 1) {
+                            metricOptions.series[key].name = "Ruhepuls";
+                        }
+                        else if (key == 2) {
+                            metricOptions.series[key].name = "Schlafdauer";
+                        }
+                        else if (key == 3) {
+                            metricOptions.series[key].name = "Schlafqualität";
+                        }
+                        else if (key == 4) {
+                            metricOptions.series[key].name = "Stress";
+                        }
+                        else if (key == 5) {
+                            metricOptions.series[key].name = "Motivation";
+                        }
+                        else if (key == 6) {
+                            metricOptions.series[key].name = "Gefühl";
+                        }
+                        else if (key == 7) {
+                            metricOptions.series[key].name = "Krank";
+                        }
+                        else {
+                            metricOptions.series[key].name = "Gestriges Training";
+                        }
+                    });
+
+                    var mchart = new Highcharts.Chart(metricOptions);
+                } else if (reportTypeName == 9) {
+                    $.each(dataseries, function (key, val) {
+                        if (key == 0) {// "Trimp"
+                            dataseries[key].type = "column";
+                            dataseries[key].yAxis = 0;
+                            trainingOptions.series.push(dataseries[key]);
+                        }
+                        else if (key == 1) { //ATL
+                            dataseries[key].type = "line";
+                            trainingOptions.series.push(dataseries[key]);
+                            dataseries[key].yAxis = 1;
+                        }
+                        else if (key == 2) { //CTL
+                            dataseries[key].type = "line";
+                            trainingOptions.series.push(dataseries[key]);
+                            dataseries[key].yAxis = 1;
+                        }
+                        else if (key == 3) { //TSB
+                            dataseries[key].type = "line";
+                            trainingOptions.series.push(dataseries[key]);
+                            dataseries[key].yAxis = 2;
+                        }
+                    });
+
+                    var tchart = new Highcharts.Chart(trainingOptions);
+                } else {
+                    console.log("empty");
+                }
+            });
+
+        };
+
+        $(document).ready(function () {
+            $("#fromDate").datepicker(
+                 {
+                     changeMonth: true,
+                     changeYear: true,
+                     onSelect: function (selectedDate) {
+                         $("#toDate").datepicker("option", "minDate", selectedDate);
+                     }
+                 });
+            $("#toDate").datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    onSelect: function (selectedDate) {
+                        $("#fromDate").datepicker("option", "maxDate", selectedDate);
+                    }
+                });
+
+            $("#UpdateReport").click(function () {
+                var selectedTab = $("#charts").find("li.active > a");
+                var reportTypeName = 1;
+                if ($(selectedTab).attr("href").indexOf("duration") > -1)
+                    reportTypeName = 1;
+                else if ($(selectedTab).attr("href").indexOf("heartrate") > -1)
+                    reportTypeName = 2;
+                else if ($(selectedTab).attr("href").indexOf("metric") > -1)
+                    reportTypeName = 7;
+                else if ($(selectedTab).attr("href").indexOf("training") > -1)
+                    reportTypeName = 9;
+                updateReport(reportTypeName);
+            });
+            $("#timeUnitSelect").change(function () {
+                updateReport();
+            });
+            //$("#UpdateReport").button();
+            //$("#charts").tab();
+
+            $('#charts a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            })
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+                //e.target // activated tab
+                //e.relatedTarget // previous tab
+                var reportTypeName = 1;
+                if (e.target.href.indexOf("duration") > -1)
+                    reportTypeName = 1;
+                else if (e.target.href.indexOf("heartrate") > -1)
+                    reportTypeName = 2;
+                else if (e.target.href.indexOf("metric") > -1)
+                    reportTypeName = 7;
+                else if (e.target.href.indexOf("training") > -1)
+                    reportTypeName = 9;
+                updateReport(reportTypeName);
+            })
+            //initial loading
+            updateReport();
+
+        });
+        var updateReport = function (reportTypeName) {
+            var fromTemp = $("#fromDate").datepicker("getDate");
+            var toTemp = $("#toDate").datepicker("getDate");
+            var from = fromTemp.getDate() + "." + (fromTemp.getMonth() + 1) + "." + fromTemp.getFullYear();
+            var to = toTemp.getDate() + "." + (toTemp.getMonth() + 1) + "." + toTemp.getFullYear();
+
+            var timeUnit = $("#timeUnitSelect").find(".active").val();
+
+            callData(from, to, timeUnit, reportTypeName);
+        };
+        var updateMonthName = function (month, year) {
+            var monthNames = $("#Date").datepicker("option", "monthNames");
+            console.log(monthNames);
+            $("#calendarTitle").text(monthNames[month - 1] + " " + year);
+        };
+    </script>
+}

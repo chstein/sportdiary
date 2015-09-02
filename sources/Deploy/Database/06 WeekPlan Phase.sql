@@ -1,0 +1,65 @@
+USE [Sporty]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE TABLE [dbo].[Phase](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[ShortName] [varchar](50) NOT NULL,
+	[Description] [varchar](255) NULL,
+	[Color] [varchar](7) NULL,
+	[Order] [int] NULL,
+ CONSTRAINT [PK_Phase] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Phase]  WITH CHECK ADD  CONSTRAINT [FK_Phase_WeekPlan] FOREIGN KEY([Id])
+REFERENCES [dbo].[WeekPlan] ([Id])
+GO
+
+ALTER TABLE [dbo].[Phase] CHECK CONSTRAINT [FK_Phase_WeekPlan]
+GO
+
+CREATE TABLE [dbo].[WeekPlan](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[WeekNumber] [int] NOT NULL,
+	[Year] [int] NOT NULL,
+	[PhaseId] [int] NOT NULL,
+ CONSTRAINT [PK_WeekPlan] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[WeekPlan]  WITH CHECK ADD  CONSTRAINT [FK_WeekPlan_Phase] FOREIGN KEY([PhaseId])
+REFERENCES [dbo].[Phase] ([Id])
+GO
+
+ALTER TABLE [dbo].[WeekPlan] CHECK CONSTRAINT [FK_WeekPlan_Phase]
+GO
+
+ALTER TABLE [dbo].[WeekPlan]  WITH CHECK ADD  CONSTRAINT [FK_WeekPlan_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([UserId])
+GO
+
+ALTER TABLE [dbo].[WeekPlan] CHECK CONSTRAINT [FK_WeekPlan_User]
+GO
+
+
+

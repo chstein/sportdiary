@@ -1,0 +1,34 @@
+﻿@using MvcContrib.Pagination
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@using Sporty.Common
+@using Sporty.ViewModel
+@using Sporty.Helper;
+@model IEnumerable<PlanView>
+@{
+    ViewBag.Title = "Übersicht der Pläne";
+}
+<div id="tableInfo" class="row">
+    @Html.Grid(Model).Columns(column =>
+                                        {
+                                            column.Custom(
+                                                @<div>
+                                                     <a class="adetailsModal" href="@Url.Action("Edit", "Plan", new {item.Id})">
+                                                         <img src="@Url.Content("~/Content/images/pencil.png")" class="ExerciseDetails" alt="Details" />
+                                                     </a><a class="deleteButton" href="@Url.Action("Delete", "Plan", new {item.Id})"  title="Plan löschen?">
+                                                             <img src="@Url.Content("~/Content/images/delete.png")" class="ExerciseDelete" alt="L&ouml;schen" />
+                                                         </a>
+                                                 </div>
+                                                ).Sortable(false).Attributes(@style => "width: 40px;");
+                                            column.For(m => m.Date.ToString("d", CultureHelper.DefaultCulture)).Named("Datum").SortColumnName("Date");
+                                            column.For(m => m.SportTypeName).Named("Sportart");
+                                            column.For(m => m.ZoneName).Named("Zone");
+                                            column.For(m => m.PlannedDuration).Named("Dauer");
+                                            column.For(m => m.Distance).Named("Länge");
+                                            column.For(m => m.TrainingTypeName).Named("Art des Trainings");
+                                            column.For(m => (m.Description != null && m.Description.Length > 30 ?
+                                                                                                                    String.Format("{0}...", m.Description.Substring(0, 30)) : m.Description))
+                                                .Named("Beschreibung").SortColumnName("Description");
+                                        }).Sort(ViewData["sort"] as GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover")
+        @Html.BootstrapPager((IPagination<PlanView>) Model)
+</div>

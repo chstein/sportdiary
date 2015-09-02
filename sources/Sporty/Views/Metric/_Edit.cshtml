@@ -1,0 +1,289 @@
+﻿@using Sporty.Common
+@model Sporty.ViewModel.MetricView
+@{
+    ViewBag.Title = "Tageswert";
+    if (!IsAjax)
+    {
+        Layout = "~/Views/Shared/_Site.cshtml";
+    }
+}
+
+
+<div id="dialog" title="Edit session">
+    <div class="editForm span5">
+        @using (Html.BeginForm("Edit", "Metric", FormMethod.Post, new
+                {
+                    id = "DetailsForm",
+                    @class = "form-horizontal",
+                    name = "DetailsForm",
+                    method = "post"
+                }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div class="editDialog metricDialog">
+                <div class="page-header">
+                    <h2>Einheit</h2>
+                </div>
+                <div class="control-group">
+                    <input type="submit" id="save" name="save" value="Speichern" class="btn btn-primary" />
+                    @Html.ActionLink("Abbrechen", "Index", "Metric", null, new { @class = "btn btn-small" })
+                    @if (!Model.IsNew)
+                    {
+                        @Html.ActionLink("Löschen", "Delete", "Metric", new { Model.Id }, new { @class = "btn btn-small", @title = "Tageswert löschen?", @id = "deleteButton" })
+                    }
+                </div>
+                <div class="control-group">
+                    <label for="Date" class="control-label">Datum:</label>
+                    <div class="controls">
+                        @Html.TextBox("Date", Model.Date.ToString("d", CultureHelper.DefaultCulture), new { @class = "input-small" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Weight" class="control-label">Gewicht:</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.Weight, new { @class = "input-small" }) <small>[kg]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="RestingPulse" class="control-label">Ruhepuls:</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.RestingPulse, new { @class = "input-small" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="SleepDuration" class="control-label">Schlafdauer:</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.SleepDuration, new { @class = "input-small" }) <small>[h]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="SleepQuality" class="control-label">Schlafqualit&auml;t:</label>
+                    <div class="controls">
+                        <input type="text" id="SleepQualityText" name="SleepQualityText" class="sliderText" />
+                        @Html.HiddenFor(model => model.SleepQuality)
+                        <div id="SleepQualitySlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="StressLevel" class="control-label">Stress:</label>
+                    <div class="controls">
+                        <input type="text" id="StressLevelText" name="StressLevelText" class="sliderText" />
+                        @Html.HiddenFor(model => model.StressLevel)
+                        <div id="StressLevelSlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Motivation" class="control-label">Motivation:</label>
+                    <div class="controls">
+                        <input type="text" id="MotivationText" name="MotivationText" class="sliderText" />
+                        @Html.HiddenFor(model => model.Motivation)
+                        <div id="MotivationSlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Mood" class="control-label">Grundgef&uuml;hl:</label>
+                    <div class="controls">
+                        <input type="text" id="MoodText" name="MoodText" class="sliderText" />
+                        @Html.HiddenFor(model => model.Mood)
+                        <div id="MoodSlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Sick" class="control-label">Krank / Verletzt?:</label>
+                    <div class="controls">
+                        <input type="text" id="SickText" name="SickText" class="sliderText" />
+                        @Html.HiddenFor(model => model.Sick)
+                        <div id="SickSlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="YesterdaysTraining" class="control-label">Gestriges Training:</label>
+                    <div class="controls">
+                        <input type="text" id="YesterdaysTrainingText" name="YesterdaysTrainingText" class="sliderText" />
+                        @Html.HiddenFor(model => model.YesterdaysTraining)
+                        <div id="YesterdaysTrainingSlider" class="slider">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="Description" class="control-label">Beschreibung:</label>
+                    <div class="controls">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "input-xlarge" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        var sleepQualityData = ["", "Grauenhaft", "Schlecht", "Geht so", "Durchschnitt", "Gut", "Sehr gut", "Genial"];
+        var stressLevelData = ["", "Kein Stress", "Sehr wenig", "Wenig", "Durchschnitt", "Viel", "Sehr viel", "Extrem"];
+        var motivationData = ["", "Extrem Unmotiviert", "Ziemlich unmotiviert", "Unmotiviert", "Wenig begeistert",
+            "Unterm Schnitt", "Überm Schnitt", "Begeistert", "Motiviert", "Gut Motiviert", "Top motiviert", "Absolut Begeistert"];
+        var moodData = ["", "Niedergeschlagen", "Normal", "Besser als Normal"];
+        var sickData = ["", "Völlig krank", "Ziemlich krank", "Krank", "Gesund", "Sehr gesund", "Superman"];
+        var yesterdaysTrainingData = ["", "Schwere Glieder", "Normal", "Leicht", "Ruhetag"];
+
+        $(document).ready(function () {
+            $("#Date").datepicker(
+    {
+        option: $.datepicker.regional["de"],
+        showWeek: true,
+        firstDay: 1
+    });
+
+            $("#SleepQualitySlider").slider({
+                value: $("#SleepQuality").val(),
+                min: 0,
+                max: sleepQualityData.length - 1,
+                animate: true,
+                slide: function (event, ui) {
+                    $("#SleepQuality").val(ui.value);
+                    $("#SleepQualityText").val(sleepQualityData[ui.value]);
+                }
+            });
+
+            //HACK Background muss nach dem jquery ui Style gesetzt werden, ansonsten bleibts weiß
+            $("#SleepQualitySlider").removeClass("ui-widget-content").addClass("sleepQualitySlider");
+
+            if ($("#SleepQualitySlider").slider("value") != null) {
+                var val = $("#SleepQualitySlider").slider("value");
+                $("#SleepQuality").val(val);
+                $("#SleepQualityText").val(sleepQualityData[val]);
+            }
+
+            $("#StressLevelSlider").slider({
+                value: $("#StressLevel").val(),
+                min: 0,
+                max: stressLevelData.length - 1,
+                slide: function (event, ui) {
+                    $("#StressLevel").val(ui.value);
+                    $("#StressLevelText").val(stressLevelData[ui.value]);
+                }
+            });
+
+            $("#StressLevelSlider").removeClass("ui-widget-content").addClass("stressLevelSlider");
+
+            if ($("#StressLevelSlider").slider("value") != null) {
+                $("#StressLevel").val($("#StressLevelSlider").slider("value"));
+                $("#StressLevelText").val(stressLevelData[$("#StressLevelSlider").slider("value")]);
+            }
+
+            $("#MotivationSlider").slider({
+                value: $("#Motivation").val(),
+                min: 0,
+                max: motivationData.length - 1,
+                slide: function (event, ui) {
+                    $("#Motivation").val(ui.value);
+                    $("#MotivationText").val(motivationData[ui.value]);
+                }
+            });
+            $("#MotivationSlider").removeClass("ui-widget-content").addClass("motivationSlider");
+            if ($("#MotivationSlider").slider("value") != null) {
+                $("#Motivation").val($("#MotivationSlider").slider("value"));
+                $("#MotivationText").val(motivationData[$("#MotivationSlider").slider("value")]);
+            }
+
+            $("#MoodSlider").slider({
+                value: $("#Mood").val(),
+                min: 0,
+                max: moodData.length - 1,
+                slide: function (event, ui) {
+                    $("#Mood").val(ui.value);
+                    $("#MoodText").val(moodData[ui.value]);
+                }
+            });
+            $("#MoodSlider").removeClass("ui-widget-content").addClass("moodSlider");
+            if ($("#MoodSlider").slider("value") != null) {
+                $("#Mood").val($("#MoodSlider").slider("value"));
+                $("#MoodText").val(moodData[$("#MoodSlider").slider("value")]);
+            }
+
+            $("#SickSlider").slider({
+                value: $("#Sick").val(),
+                min: 0,
+                max: sickData.length - 1,
+                slide: function (event, ui) {
+                    $("#Sick").val(ui.value);
+                    $("#SickText").val(sickData[ui.value]);
+                }
+            });
+            $("#SickSlider").removeClass("ui-widget-content").addClass("sickSlider");
+            if ($("#SickSlider").slider("value") != null) {
+                $("#Sick").val($("#SickSlider").slider("value"));
+                $("#SickText").val(sickData[$("#SickSlider").slider("value")]);
+            }
+
+            $("#YesterdaysTrainingSlider").slider({
+                value: $("#YesterdaysTraining").val(),
+                min: 0,
+                max: yesterdaysTrainingData.length - 1,
+                slide: function (event, ui) {
+                    $("#YesterdaysTraining").val(ui.value);
+                    $("#YesterdaysTrainingText").val(yesterdaysTrainingData[ui.value]);
+                }
+            });
+            $("#YesterdaysTrainingSlider").removeClass("ui-widget-content").addClass("yesterdaysTrainingSlider");
+            if ($("#YesterdaysTrainingSlider").slider("value") != null) {
+                $("#YesterdaysTraining").val($("#YesterdaysTrainingSlider").slider("value"));
+                $("#YesterdaysTrainingText").val(yesterdaysTrainingData[$("#YesterdaysTrainingSlider").slider("value")]);
+            }
+
+
+            $("#DetailsForm").validate({
+                rules: {
+                    Date: {
+                        required: true,
+                        DEDate: true
+                    },
+                    Weight: {
+                        range: [1, 200]
+                    },
+                    RestingPulse: {
+                        range: [1, 200]
+                    },
+                    SleepDuration: {
+                        range: [0, 20]
+                    }
+                },
+                messages: {
+                    Date: {
+                        required: "*"
+                    },
+                    Weight: {
+                        range: "*"
+                    },
+                    RestingPulse: {
+                        range: "*"
+                    },
+                    SleepDuration: {
+                        range: "*"
+                    }
+                }
+            });
+
+            $("#deleteButton").on("click", function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var $msg = $(this).attr("title");
+
+                bootbox.confirm($msg, function (result) {
+                    if (result) {
+                        deleteRow($btn, function () {
+                            window.location.href = "@Url.Action("Index")";
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

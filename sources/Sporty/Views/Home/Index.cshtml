@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Home.cshtml";
+    ViewBag.BodyBackgroundCssClass = "home";
+    ViewBag.Title = "Plane und erreiche deine Ziele...";
+}
+<div class="hero-unit">
+    <div class="row-fluid">
+        <div class="span6">
+            <h1>Plane und erreiche deine Ziele</h1>
+            <p>Mit Sportdiary.org habt Ihr Eure sportlichen Aktivitäten immer Blick und könnt Eure Ziele detailliert und vor allem flexibel planen. Probiert es einfach ohne Risiko aus...</p>
+            <p>Wollt Ihr mehr zur Plattform erfahren? Details gibt es <a href="http://blog.sportdiary.org/index.php/betatest-erffnetjetzt-anmelden/">hier</a> </p>
+            <a class="btn btn-success btn-large offset2" id="Register" href="@Url.Action("Register", "Account")">Jetzt registrieren...</a>
+        </div>
+        <div class="span5">
+            <img src="@Url.Content("~/Content/images/screenshot.png")" height="283" width="500" />
+        </div>
+
+    </div>
+</div>
+<div class="row subnav">
+    <div class="span4">
+        <h3>Tageswerte</h3>
+        <i class="metricsinfo"></i>
+        <p>
+            Den aktuellen Erholungsindex immer im Blick
+            und so tagesaktuelle das Training planen können.
+            Übertraining ausgeschlossen.
+        </p>
+        <a href="http://blog.sportdiary.org/index.php/wann-lege-ich-einen-ruhetag-ein/" class="btn">Details ...</a>
+    </div>
+    <div class="span4">
+        <h3>Upload der Trainingsdaten</h3>
+        <i class="uploadinfo"></i>
+        <p>
+            Einfachster Upload per Drag & Drop. Es werden viele Formate unterstützt.
+            Unter anderem Geräte von Garmin und Polar.
+        </p>
+        <a href="http://blog.sportdiary.org/index.php/upload-und-automatischer-trainingsdatenimport/" class="btn">Details ...</a>
+    </div>
+    <div class="span4">
+        <h3>Übersicht</h3>
+        <i class="calendarinfo"></i>
+        <p>
+            Schnelle und intuitive Bedienung mit dem Monatskalender.
+            Einheiten verschieben und kopieren mit Drag & Drop.
+        </p>
+        <a href="http://blog.sportdiary.org/index.php/ziele-im-blick/" class="btn">Details ...</a>
+    </div>
+</div>

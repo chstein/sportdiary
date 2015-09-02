@@ -1,0 +1,1407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Sporty.DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SportyDataModelStoreContainer">
+          <EntitySet Name="Application" EntityType="Sporty.DataModel.Store.Application" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Attachment" EntityType="Sporty.DataModel.Store.Attachment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Exercise" EntityType="Sporty.DataModel.Store.Exercise" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Goal" EntityType="Sporty.DataModel.Store.Goal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Material" EntityType="Sporty.DataModel.Store.Material" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MaterialPerExercise" EntityType="Sporty.DataModel.Store.MaterialPerExercise" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Metrics" EntityType="Sporty.DataModel.Store.Metrics" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Phase" EntityType="Sporty.DataModel.Store.Phase" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Plan" EntityType="Sporty.DataModel.Store.Plan" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Profile" EntityType="Sporty.DataModel.Store.Profile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SportType" EntityType="Sporty.DataModel.Store.SportType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TrainingType" EntityType="Sporty.DataModel.Store.TrainingType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="Sporty.DataModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WeekPlan" EntityType="Sporty.DataModel.Store.WeekPlan" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Zone" EntityType="Sporty.DataModel.Store.Zone" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__User__Applicatio__29572725" Association="Sporty.DataModel.Store.FK__User__Applicatio__29572725">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attachment_Exercise" Association="Sporty.DataModel.Store.FK_Attachment_Exercise">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="Attachment" EntitySet="Attachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_SportType" Association="Sporty.DataModel.Store.FK_Excercise_SportType">
+            <End Role="SportType" EntitySet="SportType" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_TrainingType" Association="Sporty.DataModel.Store.FK_Excercise_TrainingType">
+            <End Role="TrainingType" EntitySet="TrainingType" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_User" Association="Sporty.DataModel.Store.FK_Excercise_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_Zone" Association="Sporty.DataModel.Store.FK_Excercise_Zone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Goal_User" Association="Sporty.DataModel.Store.FK_Goal_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_User" Association="Sporty.DataModel.Store.FK_Material_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialPerExercise_Exercise" Association="Sporty.DataModel.Store.FK_MaterialPerExercise_Exercise">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="MaterialPerExercise" EntitySet="MaterialPerExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialPerExercise_Material" Association="Sporty.DataModel.Store.FK_MaterialPerExercise_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialPerExercise" EntitySet="MaterialPerExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metrics_User" Association="Sporty.DataModel.Store.FK_Metrics_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Metrics" EntitySet="Metrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phase_User" Association="Sporty.DataModel.Store.FK_Phase_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Phase" EntitySet="Phase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_SportType" Association="Sporty.DataModel.Store.FK_Plan_SportType">
+            <End Role="SportType" EntitySet="SportType" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_TrainingType" Association="Sporty.DataModel.Store.FK_Plan_TrainingType">
+            <End Role="TrainingType" EntitySet="TrainingType" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_User" Association="Sporty.DataModel.Store.FK_Plan_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Zone" Association="Sporty.DataModel.Store.FK_Plan_Zone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="Sporty.DataModel.Store.FK_Profile_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportType_User" Association="Sporty.DataModel.Store.FK_SportType_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SportType" EntitySet="SportType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrainingType_User" Association="Sporty.DataModel.Store.FK_TrainingType_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TrainingType" EntitySet="TrainingType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekPlan_Phase" Association="Sporty.DataModel.Store.FK_WeekPlan_Phase">
+            <End Role="Phase" EntitySet="Phase" />
+            <End Role="WeekPlan" EntitySet="WeekPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekPlan_User" Association="Sporty.DataModel.Store.FK_WeekPlan_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="WeekPlan" EntitySet="WeekPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zone_User" Association="Sporty.DataModel.Store.FK_Zone_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Zone" EntitySet="Zone" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Filename" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ExerciseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exercise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Duration" Type="time" Precision="0" />
+          <Property Name="Distance" Type="float" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="SportTypeId" Type="int" Nullable="false" />
+          <Property Name="Heartrate" Type="int" />
+          <Property Name="TrainingTypeId" Type="int" />
+          <Property Name="ZoneId" Type="int" />
+          <Property Name="Speed" Type="float" />
+          <Property Name="HeartrateMax" Type="int" />
+          <Property Name="SpeedMax" Type="float" />
+          <Property Name="Trimp" Type="int" />
+          <Property Name="Cadence" Type="int" />
+          <Property Name="CadenceMax" Type="int" />
+          <Property Name="Elevation" Type="float" />
+          <Property Name="WeatherNote" Type="text" />
+          <Property Name="WeatherCondition" Type="nvarchar" MaxLength="50" />
+          <Property Name="Temperature" Type="float" />
+        </EntityType>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="InUsage" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Lifetime" Type="int" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialPerExercise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialId" Type="int" Nullable="false" />
+          <Property Name="ExerciseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Metrics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="RestingPulse" Type="int" />
+          <Property Name="SleepDuration" Type="float" />
+          <Property Name="SleepQuality" Type="smallint" />
+          <Property Name="StressLevel" Type="smallint" />
+          <Property Name="Motivation" Type="smallint" />
+          <Property Name="Mood" Type="smallint" />
+          <Property Name="Sick" Type="smallint" />
+          <Property Name="Description" Type="text" />
+          <Property Name="YesterdaysTraining" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Phase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShortName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Color" Type="varchar" MaxLength="7" />
+          <Property Name="Order" Type="int" />
+        </EntityType>
+        <EntityType Name="Plan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Duration" Type="time" Precision="0" />
+          <Property Name="SportTypeId" Type="int" Nullable="false" />
+          <Property Name="ZoneId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Distance" Type="float" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="TrainingTypeId" Type="int" />
+          <Property Name="IsFavorite" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileId" />
+          </Key>
+          <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsMale" Type="bit" />
+          <Property Name="BodyHeight" Type="float" />
+          <Property Name="Culture" Type="nchar" MaxLength="10" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MaxHeartrate" Type="int" />
+          <Property Name="DailyMetricsMailSendingTime" Type="time" />
+        </EntityType>
+        <EntityType Name="SportType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrainingType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="SsoToken" Type="nvarchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="WeekPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WeekNumber" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="PhaseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="7" />
+        </EntityType>
+        <Association Name="FK__User__Applicatio__29572725">
+          <End Role="Application" Type="Sporty.DataModel.Store.Application" Multiplicity="1" />
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attachment_Exercise">
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="1" />
+          <End Role="Attachment" Type="Sporty.DataModel.Store.Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="ExerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_SportType">
+          <End Role="SportType" Type="Sporty.DataModel.Store.SportType" Multiplicity="1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="SportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_TrainingType">
+          <End Role="TrainingType" Type="Sporty.DataModel.Store.TrainingType" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="TrainingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_Zone">
+          <End Role="Zone" Type="Sporty.DataModel.Store.Zone" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="ZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Goal_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Goal" Type="Sporty.DataModel.Store.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Material" Type="Sporty.DataModel.Store.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialPerExercise_Exercise">
+          <End Role="Exercise" Type="Sporty.DataModel.Store.Exercise" Multiplicity="1" />
+          <End Role="MaterialPerExercise" Type="Sporty.DataModel.Store.MaterialPerExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialPerExercise">
+              <PropertyRef Name="ExerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialPerExercise_Material">
+          <End Role="Material" Type="Sporty.DataModel.Store.Material" Multiplicity="1" />
+          <End Role="MaterialPerExercise" Type="Sporty.DataModel.Store.MaterialPerExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialPerExercise">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metrics_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Metrics" Type="Sporty.DataModel.Store.Metrics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Metrics">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phase_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Phase" Type="Sporty.DataModel.Store.Phase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Phase">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_SportType">
+          <End Role="SportType" Type="Sporty.DataModel.Store.SportType" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Store.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="SportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_TrainingType">
+          <End Role="TrainingType" Type="Sporty.DataModel.Store.TrainingType" Multiplicity="0..1" />
+          <End Role="Plan" Type="Sporty.DataModel.Store.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="TrainingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Store.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Zone">
+          <End Role="Zone" Type="Sporty.DataModel.Store.Zone" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Store.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="ZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Profile" Type="Sporty.DataModel.Store.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportType_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="SportType" Type="Sporty.DataModel.Store.SportType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SportType">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrainingType_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="TrainingType" Type="Sporty.DataModel.Store.TrainingType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TrainingType">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekPlan_Phase">
+          <End Role="Phase" Type="Sporty.DataModel.Store.Phase" Multiplicity="1" />
+          <End Role="WeekPlan" Type="Sporty.DataModel.Store.WeekPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeekPlan">
+              <PropertyRef Name="PhaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekPlan_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="WeekPlan" Type="Sporty.DataModel.Store.WeekPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="WeekPlan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zone_User">
+          <End Role="User" Type="Sporty.DataModel.Store.User" Multiplicity="1" />
+          <End Role="Zone" Type="Sporty.DataModel.Store.Zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Zone">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Sporty.DataModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SportyEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Application" EntityType="Sporty.DataModel.Application" />
+          <EntitySet Name="Attachment" EntityType="Sporty.DataModel.Attachment" />
+          <EntitySet Name="Exercise" EntityType="Sporty.DataModel.Exercise" />
+          <EntitySet Name="Goal" EntityType="Sporty.DataModel.Goal" />
+          <EntitySet Name="Material" EntityType="Sporty.DataModel.Material" />
+          <EntitySet Name="MaterialPerExercise" EntityType="Sporty.DataModel.MaterialPerExercise" />
+          <EntitySet Name="Metrics" EntityType="Sporty.DataModel.Metrics" />
+          <EntitySet Name="Phase" EntityType="Sporty.DataModel.Phase" />
+          <EntitySet Name="Plan" EntityType="Sporty.DataModel.Plan" />
+          <EntitySet Name="Profile" EntityType="Sporty.DataModel.Profile" />
+          <EntitySet Name="SportType" EntityType="Sporty.DataModel.SportType" />
+          <EntitySet Name="TrainingType" EntityType="Sporty.DataModel.TrainingType" />
+          <EntitySet Name="User" EntityType="Sporty.DataModel.User" />
+          <EntitySet Name="WeekPlan" EntityType="Sporty.DataModel.WeekPlan" />
+          <EntitySet Name="Zone" EntityType="Sporty.DataModel.Zone" />
+          <AssociationSet Name="FK__User__Applicatio__29572725" Association="Sporty.DataModel.FK__User__Applicatio__29572725">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attachment_Exercise" Association="Sporty.DataModel.FK_Attachment_Exercise">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="Attachment" EntitySet="Attachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_SportType" Association="Sporty.DataModel.FK_Excercise_SportType">
+            <End Role="SportType" EntitySet="SportType" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_TrainingType" Association="Sporty.DataModel.FK_Excercise_TrainingType">
+            <End Role="TrainingType" EntitySet="TrainingType" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_User" Association="Sporty.DataModel.FK_Excercise_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Excercise_Zone" Association="Sporty.DataModel.FK_Excercise_Zone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialPerExercise_Exercise" Association="Sporty.DataModel.FK_MaterialPerExercise_Exercise">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="MaterialPerExercise" EntitySet="MaterialPerExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Goal_User" Association="Sporty.DataModel.FK_Goal_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_User" Association="Sporty.DataModel.FK_Material_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialPerExercise_Material" Association="Sporty.DataModel.FK_MaterialPerExercise_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialPerExercise" EntitySet="MaterialPerExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metrics_User" Association="Sporty.DataModel.FK_Metrics_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Metrics" EntitySet="Metrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phase_User" Association="Sporty.DataModel.FK_Phase_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Phase" EntitySet="Phase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekPlan_Phase" Association="Sporty.DataModel.FK_WeekPlan_Phase">
+            <End Role="Phase" EntitySet="Phase" />
+            <End Role="WeekPlan" EntitySet="WeekPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_SportType" Association="Sporty.DataModel.FK_Plan_SportType">
+            <End Role="SportType" EntitySet="SportType" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_TrainingType" Association="Sporty.DataModel.FK_Plan_TrainingType">
+            <End Role="TrainingType" EntitySet="TrainingType" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_User" Association="Sporty.DataModel.FK_Plan_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_Zone" Association="Sporty.DataModel.FK_Plan_Zone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Plan" EntitySet="Plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="Sporty.DataModel.FK_Profile_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportType_User" Association="Sporty.DataModel.FK_SportType_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SportType" EntitySet="SportType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrainingType_User" Association="Sporty.DataModel.FK_TrainingType_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TrainingType" EntitySet="TrainingType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeekPlan_User" Association="Sporty.DataModel.FK_WeekPlan_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="WeekPlan" EntitySet="WeekPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zone_User" Association="Sporty.DataModel.FK_Zone_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Zone" EntitySet="Zone" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="LoweredApplicationName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK__User__Applicatio__29572725" FromRole="Application" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Filename" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="ExerciseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_Attachment_Exercise" FromRole="Attachment" ToRole="Exercise" />
+        </EntityType>
+        <EntityType Name="Exercise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Duration" Type="Time" Precision="0" />
+          <Property Name="Distance" Type="Double" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Heartrate" Type="Int32" />
+          <Property Name="TrainingTypeId" Type="Int32" />
+          <Property Name="ZoneId" Type="Int32" />
+          <Property Name="Speed" Type="Double" />
+          <Property Name="HeartrateMax" Type="Int32" />
+          <Property Name="SpeedMax" Type="Double" />
+          <Property Name="Trimp" Type="Int32" />
+          <Property Name="Cadence" Type="Int32" />
+          <Property Name="CadenceMax" Type="Int32" />
+          <Property Name="Elevation" Type="Double" />
+          <Property Name="WeatherNote" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="WeatherCondition" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Temperature" Type="Double" />
+          <NavigationProperty Name="Attachment" Relationship="Sporty.DataModel.FK_Attachment_Exercise" FromRole="Exercise" ToRole="Attachment" />
+          <NavigationProperty Name="SportType" Relationship="Sporty.DataModel.FK_Excercise_SportType" FromRole="Exercise" ToRole="SportType" />
+          <NavigationProperty Name="TrainingType" Relationship="Sporty.DataModel.FK_Excercise_TrainingType" FromRole="Exercise" ToRole="TrainingType" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Excercise_User" FromRole="Exercise" ToRole="User" />
+          <NavigationProperty Name="Zone" Relationship="Sporty.DataModel.FK_Excercise_Zone" FromRole="Exercise" ToRole="Zone" />
+          <NavigationProperty Name="MaterialPerExercise" Relationship="Sporty.DataModel.FK_MaterialPerExercise_Exercise" FromRole="Exercise" ToRole="MaterialPerExercise" />
+        </EntityType>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Goal_User" FromRole="Goal" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="InUsage" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Lifetime" Type="Int32" />
+          <Property Name="Filename" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Material_User" FromRole="Material" ToRole="User" />
+          <NavigationProperty Name="MaterialPerExercise" Relationship="Sporty.DataModel.FK_MaterialPerExercise_Material" FromRole="Material" ToRole="MaterialPerExercise" />
+        </EntityType>
+        <EntityType Name="MaterialPerExercise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialId" Type="Int32" Nullable="false" />
+          <Property Name="ExerciseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_MaterialPerExercise_Exercise" FromRole="MaterialPerExercise" ToRole="Exercise" />
+          <NavigationProperty Name="Material" Relationship="Sporty.DataModel.FK_MaterialPerExercise_Material" FromRole="MaterialPerExercise" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="Metrics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="RestingPulse" Type="Int32" />
+          <Property Name="SleepDuration" Type="Double" />
+          <Property Name="SleepQuality" Type="Int16" />
+          <Property Name="StressLevel" Type="Int16" />
+          <Property Name="Motivation" Type="Int16" />
+          <Property Name="Mood" Type="Int16" />
+          <Property Name="Sick" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="YesterdaysTraining" Type="Int16" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Metrics_User" FromRole="Metrics" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Phase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Color" Type="String" MaxLength="7" Unicode="false" FixedLength="false" />
+          <Property Name="Order" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Phase_User" FromRole="Phase" ToRole="User" />
+          <NavigationProperty Name="WeekPlan" Relationship="Sporty.DataModel.FK_WeekPlan_Phase" FromRole="Phase" ToRole="WeekPlan" />
+        </EntityType>
+        <EntityType Name="Plan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Duration" Type="Time" Precision="0" />
+          <Property Name="SportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ZoneId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Distance" Type="Double" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TrainingTypeId" Type="Int32" />
+          <Property Name="IsFavorite" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SportType" Relationship="Sporty.DataModel.FK_Plan_SportType" FromRole="Plan" ToRole="SportType" />
+          <NavigationProperty Name="TrainingType" Relationship="Sporty.DataModel.FK_Plan_TrainingType" FromRole="Plan" ToRole="TrainingType" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Plan_User" FromRole="Plan" ToRole="User" />
+          <NavigationProperty Name="Zone" Relationship="Sporty.DataModel.FK_Plan_Zone" FromRole="Plan" ToRole="Zone" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileId" />
+          </Key>
+          <Property Name="ProfileId" Type="Guid" Nullable="false" />
+          <Property Name="IsMale" Type="Boolean" />
+          <Property Name="BodyHeight" Type="Double" />
+          <Property Name="Culture" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="MaxHeartrate" Type="Int32" />
+          <Property Name="DailyMetricsMailSendingTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SportType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_Excercise_SportType" FromRole="SportType" ToRole="Exercise" />
+          <NavigationProperty Name="Plan" Relationship="Sporty.DataModel.FK_Plan_SportType" FromRole="SportType" ToRole="Plan" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_SportType_User" FromRole="SportType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TrainingType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_Excercise_TrainingType" FromRole="TrainingType" ToRole="Exercise" />
+          <NavigationProperty Name="Plan" Relationship="Sporty.DataModel.FK_Plan_TrainingType" FromRole="TrainingType" ToRole="Plan" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_TrainingType_User" FromRole="TrainingType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="SsoToken" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Application" Relationship="Sporty.DataModel.FK__User__Applicatio__29572725" FromRole="User" ToRole="Application" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_Excercise_User" FromRole="User" ToRole="Exercise" />
+          <NavigationProperty Name="Goal" Relationship="Sporty.DataModel.FK_Goal_User" FromRole="User" ToRole="Goal" />
+          <NavigationProperty Name="Material" Relationship="Sporty.DataModel.FK_Material_User" FromRole="User" ToRole="Material" />
+          <NavigationProperty Name="Metrics" Relationship="Sporty.DataModel.FK_Metrics_User" FromRole="User" ToRole="Metrics" />
+          <NavigationProperty Name="Phase" Relationship="Sporty.DataModel.FK_Phase_User" FromRole="User" ToRole="Phase" />
+          <NavigationProperty Name="Plan" Relationship="Sporty.DataModel.FK_Plan_User" FromRole="User" ToRole="Plan" />
+          <NavigationProperty Name="Profile" Relationship="Sporty.DataModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
+          <NavigationProperty Name="SportType" Relationship="Sporty.DataModel.FK_SportType_User" FromRole="User" ToRole="SportType" />
+          <NavigationProperty Name="TrainingType" Relationship="Sporty.DataModel.FK_TrainingType_User" FromRole="User" ToRole="TrainingType" />
+          <NavigationProperty Name="WeekPlan" Relationship="Sporty.DataModel.FK_WeekPlan_User" FromRole="User" ToRole="WeekPlan" />
+          <NavigationProperty Name="Zone" Relationship="Sporty.DataModel.FK_Zone_User" FromRole="User" ToRole="Zone" />
+        </EntityType>
+        <EntityType Name="WeekPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="WeekNumber" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="PhaseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Phase" Relationship="Sporty.DataModel.FK_WeekPlan_Phase" FromRole="WeekPlan" ToRole="Phase" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_WeekPlan_User" FromRole="WeekPlan" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Color" Type="String" MaxLength="7" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Exercise" Relationship="Sporty.DataModel.FK_Excercise_Zone" FromRole="Zone" ToRole="Exercise" />
+          <NavigationProperty Name="Plan" Relationship="Sporty.DataModel.FK_Plan_Zone" FromRole="Zone" ToRole="Plan" />
+          <NavigationProperty Name="User" Relationship="Sporty.DataModel.FK_Zone_User" FromRole="Zone" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__User__Applicatio__29572725">
+          <End Role="Application" Type="Sporty.DataModel.Application" Multiplicity="1" />
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attachment_Exercise">
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="1" />
+          <End Role="Attachment" Type="Sporty.DataModel.Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="ExerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_SportType">
+          <End Role="SportType" Type="Sporty.DataModel.SportType" Multiplicity="1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="SportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_TrainingType">
+          <End Role="TrainingType" Type="Sporty.DataModel.TrainingType" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="TrainingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Excercise_Zone">
+          <End Role="Zone" Type="Sporty.DataModel.Zone" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="ZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialPerExercise_Exercise">
+          <End Role="Exercise" Type="Sporty.DataModel.Exercise" Multiplicity="1" />
+          <End Role="MaterialPerExercise" Type="Sporty.DataModel.MaterialPerExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialPerExercise">
+              <PropertyRef Name="ExerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Goal_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Goal" Type="Sporty.DataModel.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Material" Type="Sporty.DataModel.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialPerExercise_Material">
+          <End Role="Material" Type="Sporty.DataModel.Material" Multiplicity="1" />
+          <End Role="MaterialPerExercise" Type="Sporty.DataModel.MaterialPerExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialPerExercise">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metrics_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Metrics" Type="Sporty.DataModel.Metrics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Metrics">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phase_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Phase" Type="Sporty.DataModel.Phase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Phase">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekPlan_Phase">
+          <End Role="Phase" Type="Sporty.DataModel.Phase" Multiplicity="1" />
+          <End Role="WeekPlan" Type="Sporty.DataModel.WeekPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeekPlan">
+              <PropertyRef Name="PhaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_SportType">
+          <End Role="SportType" Type="Sporty.DataModel.SportType" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="SportTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_TrainingType">
+          <End Role="TrainingType" Type="Sporty.DataModel.TrainingType" Multiplicity="0..1" />
+          <End Role="Plan" Type="Sporty.DataModel.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="TrainingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_Zone">
+          <End Role="Zone" Type="Sporty.DataModel.Zone" Multiplicity="1" />
+          <End Role="Plan" Type="Sporty.DataModel.Plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plan">
+              <PropertyRef Name="ZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Profile" Type="Sporty.DataModel.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportType_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="SportType" Type="Sporty.DataModel.SportType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SportType">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrainingType_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="TrainingType" Type="Sporty.DataModel.TrainingType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TrainingType">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeekPlan_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="WeekPlan" Type="Sporty.DataModel.WeekPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="WeekPlan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zone_User">
+          <End Role="User" Type="Sporty.DataModel.User" Multiplicity="1" />
+          <End Role="Zone" Type="Sporty.DataModel.Zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Zone">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SportyDataModelStoreContainer" CdmEntityContainer="SportyEntities">
+          <EntitySetMapping Name="Application">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachment">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="ExerciseId" ColumnName="ExerciseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exercise">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Exercise">
+              <MappingFragment StoreEntitySet="Exercise">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SportTypeId" ColumnName="SportTypeId" />
+                <ScalarProperty Name="Heartrate" ColumnName="Heartrate" />
+                <ScalarProperty Name="TrainingTypeId" ColumnName="TrainingTypeId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="HeartrateMax" ColumnName="HeartrateMax" />
+                <ScalarProperty Name="SpeedMax" ColumnName="SpeedMax" />
+                <ScalarProperty Name="Trimp" ColumnName="Trimp" />
+                <ScalarProperty Name="Cadence" ColumnName="Cadence" />
+                <ScalarProperty Name="CadenceMax" ColumnName="CadenceMax" />
+                <ScalarProperty Name="Elevation" ColumnName="Elevation" />
+                <ScalarProperty Name="WeatherNote" ColumnName="WeatherNote" />
+                <ScalarProperty Name="WeatherCondition" ColumnName="WeatherCondition" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goal">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Goal">
+              <MappingFragment StoreEntitySet="Goal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InUsage" ColumnName="InUsage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Lifetime" ColumnName="Lifetime" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialPerExercise">
+            <EntityTypeMapping TypeName="Sporty.DataModel.MaterialPerExercise">
+              <MappingFragment StoreEntitySet="MaterialPerExercise">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="ExerciseId" ColumnName="ExerciseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Metrics">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Metrics">
+              <MappingFragment StoreEntitySet="Metrics">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="RestingPulse" ColumnName="RestingPulse" />
+                <ScalarProperty Name="SleepDuration" ColumnName="SleepDuration" />
+                <ScalarProperty Name="SleepQuality" ColumnName="SleepQuality" />
+                <ScalarProperty Name="StressLevel" ColumnName="StressLevel" />
+                <ScalarProperty Name="Motivation" ColumnName="Motivation" />
+                <ScalarProperty Name="Mood" ColumnName="Mood" />
+                <ScalarProperty Name="Sick" ColumnName="Sick" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="YesterdaysTraining" ColumnName="YesterdaysTraining" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phase">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Phase">
+              <MappingFragment StoreEntitySet="Phase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plan">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Plan">
+              <MappingFragment StoreEntitySet="Plan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="SportTypeId" ColumnName="SportTypeId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TrainingTypeId" ColumnName="TrainingTypeId" />
+                <ScalarProperty Name="IsFavorite" ColumnName="IsFavorite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="IsMale" ColumnName="IsMale" />
+                <ScalarProperty Name="BodyHeight" ColumnName="BodyHeight" />
+                <ScalarProperty Name="Culture" ColumnName="Culture" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MaxHeartrate" ColumnName="MaxHeartrate" />
+                <ScalarProperty Name="DailyMetricsMailSendingTime" ColumnName="DailyMetricsMailSendingTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportType">
+            <EntityTypeMapping TypeName="Sporty.DataModel.SportType">
+              <MappingFragment StoreEntitySet="SportType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingType">
+            <EntityTypeMapping TypeName="Sporty.DataModel.TrainingType">
+              <MappingFragment StoreEntitySet="TrainingType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Sporty.DataModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="SsoToken" ColumnName="SsoToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeekPlan">
+            <EntityTypeMapping TypeName="Sporty.DataModel.WeekPlan">
+              <MappingFragment StoreEntitySet="WeekPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="PhaseId" ColumnName="PhaseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zone">
+            <EntityTypeMapping TypeName="Sporty.DataModel.Zone">
+              <MappingFragment StoreEntitySet="Zone">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

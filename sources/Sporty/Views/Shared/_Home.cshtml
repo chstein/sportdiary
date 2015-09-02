@@ -1,0 +1,113 @@
+@using System.Reflection
+@using Sporty.Common
+@using Sporty.Controllers
+@using StackExchange.Profiling;
+@using Sporty.Helper;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server"> </script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Sportdiary: @ViewBag.Title
+    </title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+    <meta name="Title" content="Sportdiary.org, Plane dein Training und erreiche deine Ziele" />
+    <meta name="Revisit" content="After 1 day" />
+    <meta name="Keywords" content="Triathlon, Training, Sport, Ziele, Plan, Planung, Laufen, Schwimmen, Rad, Geschwindigkeit, Pace" />
+    <meta name="Description" content="Sportdiary.org unterstützt beim Planen deiner Ziele im Triathlonbereich. Schnell, einfach und vor allem flexibel." />
+    <meta name="Abstract" content="Sportdiary.org unterstützt beim Planen deiner Ziele im Triathlonbereich. Schnell, einfach und vor allem flexibel." />
+    <meta name="page-topic" content="Triathlon, Laufen, Schwimmen, Rad, Training, Planung" />
+    <meta name="audience" content="Sportler, Läufer, Radler, Rennrad" />
+    <meta name="Robots" content="index,follow;" />
+    <meta name="Language" content="Deutsch,de" />
+    <meta name="geo.placename" content="Berlin, Germany" />
+    <meta name="geo.position" content="52.52341;13.41140" />
+    <meta name="geo.region" content="DE-Berlin" />
+    <meta name="ICBM" content="52.52341, 13.41140" />
+    <meta name="DC.title" content="Sportdiary.org, Plane dein Training und erreiche deine Ziele" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script type="text/javascript">
+        var logErrorUrl = '@Url.Action("LogJavaScriptError", "Error")';
+    </script>
+    <meta charset="utf-8" />
+    @*<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />*@
+    @System.Web.Optimization.Styles.Render("~/Content/css")
+</head>
+<body class="@ViewBag.BodyBackgroundCssClass">
+    <div class="page">
+        <div id="header" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <a href="./" class="brand">
+                        <img src="~/Content/images/logo.png" alt="Sportdiary" />
+                    </a>
+                    <div class="nav-collapse">
+                        <!-- .nav, .navbar-search, .navbar-form, etc -->
+                        <ul id="toolbar" class="nav actions">
+                            <li id="Home">@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li id="Neuigkeiten"><a href="http://blog.sportdiary.org/" target="_blank">Neuigkeiten</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav pull-right">
+                        <div class="btn-group">
+                            <a class="btn" href="@Url.Action("Login", "Account")"><i class="icon-user"></i>&nbsp;Anmelden</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container subnav">
+            @RenderBody()
+            @Html.Partial("_Footer")
+        </div>
+    </div>
+
+    @if (Html.IsRelease())
+    {
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var pkBaseURL = (("https:" == document.location.protocol) ? "https://pw.sportdiary.org/" : "http://pw.Sportdiary.org/");
+            document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+                piwikTracker.trackPageView();
+                piwikTracker.enableLinkTracking();
+            } catch (err) {
+            }
+        </script>
+        <noscript>
+            <p>
+                <img src="http://pw.Sportdiary.org/piwik.php?idsite=1" style="border: 0" alt="" />
+            </p>
+        </noscript>
+        <!-- End Piwik Tracking Tag -->
+    }
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    @if (Html.IsRelease())
+    {
+        <script type="text/javascript">
+            (function () {
+                var uv = document.createElement('script');
+                uv.type = 'text/javascript';
+                uv.async = true;
+                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/kHOIRdkfhagx8ACUAyTAVg.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(uv, s);
+            })();
+        </script>
+    }
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@using Sporty.ViewModel
+@model IEnumerable<Sporty.ViewModel.PlanView>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $(".Plan").draggable({
+                connectToSortable: ".dayContent",
+                opacity: 0.7,
+                helper: "clone",
+                revert: "invalid"
+            });
+            $(".Plan").tooltip();
+
+            $("ul, li").disableSelection();
+        });
+    </script>
+<div class="btn-toolbar">
+    <div class="favTitle" id="favTitle">Favoriten</div>
+</div>
+@{
+    foreach (PlanView planView in Model)
+    {
+        string zoneClass = String.Format("Exercise_{0}", planView.ZoneId);
+        string sessionId = String.Format("session_{0}", planView.Id);
+        string sportTypeLogoClass = String.Format("logo_{0}", planView.Discipline);
+    <div class="Plan @zoneClass IsFavorite Exercise @sessionId" id="@sessionId" title="@planView.Description">
+        <div class="logo @sportTypeLogoClass" />
+        <ul>
+            <li>
+                @planView.Duration'</li>
+            @if (planView.Distance.HasValue)
+            {
+                <li>@Html.Raw(planView.Distance + " km")</li>
+            }
+            @if (!String.IsNullOrEmpty(planView.ZoneName))
+            {
+                <li>@Html.Raw(planView.ZoneName)</li>
+            }
+        </ul>
+        <div class="itemMenu">
+            <a class="aUpdateFavorite" href="@Url.Action("UpdateFavorite", new { planView.Id })" title="Favorit entfernen">
+                <img src="@Url.Content("~/Content/images/delete.png")" />
+            </a><a class="adetailsModal" href="@Url.Action("Edit", new { planView.Id })">
+                <img src="@Url.Content("~/Content/images/pencil.png")" />
+            </a>
+        </div>
+    </div>
+    }
+}
+
+

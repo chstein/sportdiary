@@ -1,0 +1,31 @@
+﻿<!--
+// (c) Copyright Microsoft Corporation.
+// This source is subject to the Microsoft Public License (Ms-PL).
+// Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
+// All other rights reserved.
+-->
+
+<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+  xmlns:controlsToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Toolkit"
+  xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+  x:Class="Sporty.Charts.MainPage">
+    <StackPanel x:Name="DurationPerMonth">
+
+        <controlsToolkit:WrapPanel Width="800" Height="500">
+                <chartingToolkit:Chart Title="Exercises per Month" Width="800" Height="500">
+                    <chartingToolkit:Chart.Series>
+                        <chartingToolkit:ColumnSeries
+                            Title="Duration"
+                            ItemsSource="{Binding}"
+                            IndependentValueBinding="{Binding Day}"
+                            DependentValueBinding="{Binding Duration}"
+                            AnimationSequence="FirstToLast"/>
+                    </chartingToolkit:Chart.Series>
+                </chartingToolkit:Chart>
+            
+        </controlsToolkit:WrapPanel>
+    </StackPanel>
+</UserControl>

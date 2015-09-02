@@ -1,0 +1,544 @@
+﻿@using System.Web.Optimization
+@using Sporty.Common
+@using Sporty.ViewModel
+@model ExerciseDetails
+@{
+    ViewBag.Title = "Details der Einheit";
+    if (!IsAjax)
+    {
+        Layout = "~/Views/Shared/_Site.cshtml";
+    }
+}
+@System.Web.Optimization.Styles.Render("~/content/upload")
+<div id="dialog" title="Details der Einheit">
+    <div id="exerciseTabs">
+
+        <div class="editForm span5">
+            @using (
+                    Html.BeginForm("Edit", "Exercise", FormMethod.Post,
+                                   new
+                                       {
+                                           id = "DetailsForm",
+                                           name = "DetailsForm",
+                                           @class = "form-horizontal",
+                                           method = "post",
+                                           enctype = "multipart/form-data"
+                                       }))
+            {
+                @Html.HiddenFor(model => model.Id)
+                <div class="editDialog">
+                    <div class="page-header">
+                        <h2>Einheit</h2>
+                    </div>
+                    <div class="control-group">
+                        <input type="submit" id="save" name="save" value="Speichern" class="btn btn-primary" />
+                        @Html.ActionLink("Abbrechen", "Index", "Exercise", null, new { @class = "btn btn-small" })
+                        @if (!Model.IsNew)
+                        {
+                            @Html.ActionLink("Löschen", "Delete", "Exercise", new { Model.Id }, new { @class = "btn btn-small", @title = "Einheit löschen?", @id = "deleteButton" });
+                        }
+                    </div>
+                    <div class="control-group">
+                        <label for="Date" class="control-label">Datum / Zeit:</label>
+                        <div class="controls">
+                            @Html.TextBox("Date", Model.Date.ToString("d", CultureHelper.DefaultCulture), new { @class = "input-small" })
+                            <input id="Time" class="input-mini" type="text" name="Time" 
+                                           value='@Model.Date.ToString("t", CultureHelper.DefaultCulture)' />
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="SportTypeId" class="control-label">
+                            Sportart:</label>
+                        <div class="controls">
+                            @Html.DropDownList("SportTypeId", Model.SportTypes, new { @class = "input-medium" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="ZoneId" class="control-label">
+                            Zone:</label>
+                        <div class="controls">
+                            @Html.DropDownList("ZoneId", Model.Zones, new { @class = "input-medium" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Duration" class="control-label">
+                            Dauer:</label>
+                        <div class="controls">
+                            @Html.TextBox("Duration", Model.Duration, new { @class = "input-small" })
+                            <small class="help-inline">[HH:MM:SS] oder [Minuten]</small>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Distance" class="control-label">
+                            Distanz:</label>
+                        <div class="controls">
+                            @Html.TextBox("Distance", Model.Distance.HasValue ? Model.Distance.Value.ToString(CultureHelper.DefaultCulture) : "", new { @class = "input-mini" })
+                            <small>[km]</small>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Speed" class="control-label">
+                            Geschwindigkeit <small>(Max)</small>:</label>
+                        <div class="controls">
+                            @Html.TextBox("Speed", Model.Speed.HasValue ? Model.Speed.Value.ToString(CultureHelper.DefaultCulture) : null, new { @class = "input-mini" })
+                            <small>[km/h]</small>
+                            @Html.TextBox("SpeedMax", Model.SpeedMax.HasValue ? Model.SpeedMax.Value.ToString(CultureHelper.DefaultCulture) : null, new { @class = "input-mini" })
+                            <small>[km/h]</small>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Pace" class="control-label">
+                            Pace:</label>
+                        <div class="controls">
+                            <span id="Pace"></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Cadence" class="control-label">
+                            Kadenz <small>(Max)</small>:</label>
+                        <div class="controls">
+                            @Html.TextBox("Cadence", Model.Cadence, new { @class = "input-mini" })
+                            @Html.TextBox("CadenceMax", Model.CadenceMax, new { @class = "input-mini" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Trimp" class="control-label">
+                            Trimp:</label>
+                        <div class="controls">
+                            @Html.TextBox("Trimp", Model.Trimp, new { @class = "input-mini uneditable-input" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Heartrate" class="control-label">
+                            Puls <small>(Max)</small>:</label>
+                        <div class="controls">
+                            @Html.TextBox("Heartrate", Model.Heartrate, new { @class = "input-mini" })
+                            <small>[bpm]</small>
+                            @Html.TextBox("HeartrateMax", Model.HeartrateMax, new { @class = "input-mini" })
+                            <small>[bpm]</small>
+                        </div>
+
+                    </div>
+                    <div class="control-group">
+                        <label for="TrainingTypeId" class="control-label">
+                            Trainingstyp:</label>
+                        <div class="controls">
+                            @Html.DropDownList("TrainingTypeId", Model.TrainingTypes, new { @class = "input-medium" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Temperature" class="control-label">
+                            Wetter:</label>
+                        <div class="controls">
+                            @Html.HiddenFor(m => m.SelectedWeatherCondition)
+                            <select id="SelectedWeatherConditionDdl">
+                                @foreach (var item in Model.WeatherCondition)
+                                {
+                                    var path = Url.Content(string.Format("~/Content/images/{0}", item.ImageFilepath));
+                                    if (item.IsSelectedWeatherCondition)
+                                    {
+                                    <option value="@item.SelectValue" data-imagesrc="@path" selected="selected" data-description="@item.Text"></option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@item.SelectValue" data-imagesrc="@path" data-description="@item.Text"></option>
+                                    }
+                                }
+                            </select>
+                            @Html.TextBox("Temperature", Model.Temperature.HasValue ? Model.Temperature.Value.ToString(CultureHelper.DefaultCulture) : "", new { @class = "input-mini" })
+                            <small>[°C]</small>
+                            @Html.TextBoxFor(m => m.WeatherNote, new { @class = "input-large" })
+                        </div>
+                    </div>
+                    @if (!Model.IsNew)
+                    {
+                        <div class="control-group">
+                            <label for="IsCopy" class="control-label">
+                                Als Kopie speichern?</label>
+                            <div class="controls">
+                                @Html.CheckBoxFor(model => model.IsCopy)
+                            </div>
+                        </div>
+                    }
+                    <div class="control-group">
+                        <label for="Material" class="control-label">Material:</label>
+                        <div class="controls">
+                            <ul class="nav nav-tabs nav-stacked">
+                                @foreach (var material in Model.Materials)
+                                {
+                                    <li>
+                                        <div class="radio">
+                                            <img src="@Url.Action("Image", "Material", new { id = material.Id })" alt="@material.Name" style="height:30px;"/>
+                                            @if (Model.SelectedMaterialIds != null && Model.SelectedMaterialIds.Contains(material.Id))
+                                            {
+                                                <input type="checkbox" name="SelectedMaterialIds" value="@material.Id" checked="checked" style="margin-top:-1px;"/>
+                                                @material.Name
+                                                <text>(@material.Milage km)</text>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="SelectedMaterialIds" value="@material.Id" style="margin-top:-1px;"/>
+                                                @material.Name
+                                                <text>(@material.Milage km)</text>
+                                            }
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Description" class="control-label">
+                            Notizen:</label>
+                        <div class="controls">
+                            @Html.TextArea("Description", Model != null ? Model.Description : null, new { @class = "input-xlarge" })
+                        </div>
+                    </div>
+                    @if (!Model.IsNew)
+                    {
+                        <div class="control-group">
+                            <label class="control-label">
+                                Anh&auml;nge</label>
+                            <div class="attachmentList" id="attachmentList">
+                                @if (Model.Attachments != null && Model.Attachments.Any())
+                                {
+                                    foreach (AttachmentView attachment in Model.Attachments)
+                                    {
+                                    <div class="controls">
+                                        @attachment.Filename
+                                        <a class="refreshAttachmentButton" id="@String.Concat("refresh_", attachment.Id)" href="#">
+                                            <img src='@Url.Content("~/Content/images/refresh.png")' /></a> <a class="deleteAttachmentButton" id="@attachment.Id" href="#">
+                                                <img src='@Url.Content("~/Content/images/delete.png")' /></a>
+                                    </div>
+                                    }
+                                }
+                                <div class="controls">
+                                    @*<form id="ajaxUploadForm" action="@Url.Action("AttachmentUpload", "Upload", new { Model.Id })"
+                                              method="post" enctype="multipart/form-data">
+                                    <input type="file" id="fileupload" name="fileupload" />
+                                </form>*@
+                                    <div id="fileUploader">
+                                        <noscript>
+                                            <p>Please enable JavaScript to use file uploader.</p>
+                                            <!-- or put a simple form for upload here -->
+                                        </noscript>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div id="ExerciseFormErrorSummary" class="error">
+                    </div>
+                </div>
+            }
+        </div>
+        @if (!Model.IsNew)
+        {
+            <div class="routeDialog span5">
+                <h2>Karte</h2>
+                <div id="map_canvas" style="height: 500px; width: 500px;">
+                </div>
+            </div>
+            <div class="chartDialog span12">
+                <h2>Auswertungen</h2>
+                <div id="chart">
+                </div>
+            </div>
+            <div class="lapDataDialog span5">
+                <h2>Runden</h2>
+                <table id="lapTable" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>Runde
+                            </td>
+                            <td>Länge
+                            </td>
+                            <td>Zeit
+                            </td>
+                            <td>Pace
+                            </td>
+                            <td>Avg. Puls
+                            </td>
+                            <td>Max. Puls
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="socialButtons span8">
+                <h2>Teilen</h2>
+                <div class="control-group">
+                    <label for="PublicLink" class="control-label">
+                        Link:</label>
+                </div>
+
+                @Html.TextBox("PublicLink", Model.PublicLink, new { @class = "input-xxlarge" })
+
+                <a href="mailto:subject=Einheit vom @Model.Date.ToShortDateString()?body=Zur Einheit @Url.Encode(Model.PublicLink)" class="btn btn-mini">E-Mail</a>
+                <div id="socialshareprivacy"></div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+    @*<script src="~/Scripts/Google.js"></script>*@
+    @Scripts.Render("~/bundles/leaflet")
+    @Scripts.Render("~/bundles/leafAndGmaps")
+    @Scripts.Render("~/bundles/upload")
+    
+    <script type="text/javascript">
+        @if (!Model.IsNew)
+        {
+        <text>loadFacebook(document, 'script', 'facebook-jssdk');
+
+        function createUploader() {
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('fileUploader'),
+                action: '@Url.Action("AttachmentUpload", "Upload", new { id = Model.Id })',
+                debug: true,
+                allowedExtensions: ['tcx', 'hrm', 'tur', 'gpx'],
+
+                showMessage: function (message) {
+                    // Using Bootstrap's classes and jQuery selector and DOM manipulation
+                    $('#restricted-fine-uploader').append('<div class="alert alert-error">' + message + '</div>');
+                },
+                onComplete: function (id, fileName, responseJSON) {
+                    $("#attachmentList").append('<li>' + fileName +
+                        '<a class="refreshAttachmentButton" href="#" id="refresh_' + id + '" ><img src="@Url.Content("~/Content/images/refresh.png")"></a>' +
+                    '<a class="deleteAttachmentButton" href="#" id="' + id + '"><img src="@Url.Content("~/Content/images/delete.png")" /></a> </li>');
+                }
+            });
+        }
+        </text>
+        }
+        $(document).ready(function () {
+            $("#SelectedWeatherConditionDdl").ddslick({
+                width: 140,
+                selectText: "",
+                background: "#FFFFFF",
+                onSelected: function(data) {
+                    $("#SelectedWeatherCondition").val(data.selectedData.value);
+                }
+            });
+            $("#SelectedWeatherConditionDdl").addClass("help-inline");
+
+
+            if ($('#socialshareprivacy').length > 0) {
+                $('#socialshareprivacy').socialSharePrivacy({
+                    services: {
+                        facebook: {
+                            "dummy_img": "@Url.Content("~/Content/images/dummy_facebook.png")"
+                        },
+                        twitter: {
+                            "dummy_img": "@Url.Content("~/Content/images/dummy_twitter.png")"
+                        },
+                        gplus: {
+                            "dummy_img": "@Url.Content("~/Content/images/dummy_gplus.png")"
+                        }
+                    },
+                    "css_path": "@Url.Content("~/Content/ssp-oneclick.css")",
+                    "uri": "@Model.PublicLink"
+                });
+            }
+
+            $("#DetailsForm").validate({
+                rules: {
+                    Date: {
+                        required: true,
+                        DEDate: true
+                    },
+                    Time: {
+                        time: true
+                    },
+                    Duration: {
+                        required: true,
+                        regex: /^([0-9]{0,3}$)|(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$|^([01]\d|2[0-3])(:[0-5]\d){0,2}$)/
+                    },
+                    Speed: {
+
+
+                        //range: [0, 200]
+                    },
+                    SpeedMax: {
+                        range: [0, 200]
+                    },
+                    Distance: {
+                        range: [0, 500]
+                    },
+                    Heartrate: {
+                        range: [0, 300]
+                    },
+                    HeartrateMax: {
+                        range: [0, 300]
+                    },
+                    Cadence: {
+                        range: [0, 300]
+                    },
+                    CadenceMax: {
+                        range: [0, 300]
+                    },
+                    Temperature: {
+                        range: [-50, 50]
+                    }
+                },
+                messages: {
+                    Date: {
+                        required: '*'
+                    },
+                    Time: {
+                        time: '*'
+                    },
+                    Duration: {
+                        required: '*',
+                        regex: '*'
+                    },
+                    Speed: {
+                        range: '*'
+                    },
+                    SpeedMax: {
+                        range: '*'
+                    },
+                    Distance: {
+                        range: '*'
+                    },
+                    Heartrate: {
+                        range: '*'
+                    },
+                    Temperature: {
+                        range: '*'
+                    },
+                    HeartrateMax: {
+                        range: '*'
+                    },
+                    Cadence: {
+                        range: '*'
+                    },
+                    CadenceMax: {
+                        range: '*'
+                    },
+                },
+                errorElement: "span",
+                errorPlacement: function (error, element) {
+                    error.addClass("help-inline");
+                    element.siblings("label").append(error);
+                },
+                highlight: function (element) {
+                    //$(element).siblings("label").addClass("error");
+                    $(element).parents(".control-group").addClass("error");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".control-group").removeClass("error");
+                }
+            });
+
+            $("#Date").datepicker(
+                {
+                    option: $.datepicker.regional["de"],
+                    showWeek: true,
+                    firstDay: 1
+                });
+            $('#Time').timepicker({
+                timeFormat: 'hh:mm',
+                stepHour: 1,
+                stepMinute: 1,
+                hourGrid: 4,
+                minuteGrid: 10,
+                alwaysSetTime: true,
+                showButtonPanel: false
+            });
+            $.timepicker.setDefaults($.timepicker.regional['de']);
+            $("#Duration").blur(function () {
+                if ($("#Distance").valid()) $.calculateAndSetSpeedAndPace();
+            });
+            $("#Distance").blur(function () {
+                if ($("#Duration").valid()) $.calculateAndSetSpeedAndPace();
+            });
+            $("#Speed").blur(function () {
+                if ($("#Distance").valid() && $("#Duration").valid()) $.calculateAndSetSpeedAndPace();
+            });
+            $("#Heartrate").blur(function () {
+                InputNullOrValidIntegerValue($(this));
+            });
+
+            $("#deleteButton").on("click", function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var $msg = $(this).attr("title");
+
+                bootbox.confirm($msg, function (result) {
+                    if (result) {
+                        deleteRow($btn, function () {
+                            window.location.href = "@Url.Action("Index")";
+                        });
+                    }
+                });
+            });
+
+            $(".deleteAttachmentButton").on('click', function () {
+                var attachmentId = $(this).attr("id");
+                var parentLi = $(this).closest('li');
+                $.ajax({
+                    url: '@Url.Action("DeleteAttachment", "Exercise")' + "/" + attachmentId,
+                    type: 'POST',
+                    success: function () {
+                        console.log($(parentLi).html());
+                        $(parentLi).remove();
+                    },
+                    error: function (xhr, status) {
+                        displayError(xhr.responseText);
+                    }
+                });
+            });
+
+            $(".refreshAttachmentButton").on('click', function () {
+                var attachmentId = $(this).attr("id").substring(8);
+                var exerciseId = $("#Id").val();
+                $.ajax({
+                    url: '@Url.Action("RefreshAttachment", "Exercise")' + "/" + exerciseId + "/" + attachmentId,
+                    type: 'POST',
+                    success: function (data) {
+                        //update all fields
+                        if (data["Duration"] != null) {
+                            $("#Duration").val(data.Duration);
+                        }
+                        if (data["Distance"] != null) {
+                            $("#Distance").val(data.Distance.toFixed(2));
+                        }
+                        if (data["Heartrate"] != null) {
+                            $("#Heartrate").val(data.Heartrate);
+                        }
+                        if (data["Speed"] != null) {
+                            $("#Speed").val(data.Speed.toFixed(2));
+                        }
+                    },
+                    error: function (xhr, status) {
+                        displayError(xhr.responseText);
+                    }
+                });
+            });
+
+
+            var dayClicked = $("#currentDay").val();
+            if (dayClicked > 0) {
+                var month = $("#CurrentMonth").val() - 1;
+                var year = $("#CurrentYear").val();
+                $("#Date").datepicker("setDate", new Date(year, month, dayClicked));
+            }
+
+            if ($("#Distance").valid() && $("#Duration").valid()) $.calculateAndSetSpeedAndPace();
+
+           @if (!Model.IsNew)
+           {
+        <text>
+            createUploader();
+                        
+            loadMapsScript("@Url.Content("~/Exercise/GetExerciseData/" + Model.Id)");</text>
+           }
+        });
+    </script>
+}

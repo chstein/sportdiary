@@ -1,0 +1,176 @@
+﻿@using Sporty.Common
+@model Sporty.ViewModel.PlanDetailsView
+@{
+    ViewBag.Title = "Zieldetails";
+    if (!IsAjax)
+    {
+        Layout = "~/Views/Shared/_Site.cshtml";
+    }
+}
+
+<div id="dialog" title="Edit session">
+    <div class="editForm span5">
+        @using (Html.BeginForm("Edit", "Plan", FormMethod.Post, new
+                {
+                    id = "DetailsForm",
+                    @class = "form-horizontal",
+                    name = "DetailsForm",
+                    method = "post"
+                }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="editDialog">
+                <div class="page-header">
+                    <h2>Plan</h2>
+                </div>
+                <div class="control-group">
+                    <input type="submit" id="save" name="save" value="Speichern" class="btn btn-primary" />
+                    @Html.ActionLink("Abbrechen", "Index", "Plan", null, new { @class = "btn btn-small" })
+                    @if (!Model.IsNew)
+                    {
+                        @Html.ActionLink("Löschen", "Delete", "Plan", new { Model.Id }, new { @class = "btn btn-small", @title = "Plan löschen?", @id = "deleteButton" })
+                    }
+                </div>
+                <div class="control-group">
+                    <label for="Date" class="control-label">Datum / Zeit:</label>
+                    <div class="controls">
+                        @Html.TextBox("Date", Model.Date.ToString("d", CultureHelper.DefaultCulture), new { @class = "input-small" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="SportTypeId" class="control-label">
+                        Sportart:</label>
+                    <div class="controls">
+                        @Html.DropDownList("SportTypeId", Model.SportTypes, new { @class = "input-medium" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="ZoneId" class="control-label">
+                        Zone:</label>
+                    <div class="controls">
+                        @Html.DropDownList("ZoneId", Model.Zones, new { @class = "input-medium" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Duration" class="control-label">
+                        Dauer:</label>
+                    <div class="controls">
+                        @Html.TextBox("Duration", Model.Duration, new { @class = "input-small" })
+                        <small class="help-inline">[HH:MM:SS] oder [Minuten]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Distance" class="control-label">
+                        Distanz:</label>
+                    <div class="controls">
+                        @Html.TextBox("Distance", Model.Distance.HasValue ? Model.Distance.Value.ToString(CultureHelper.DefaultCulture) : "", new { @class = "input-mini" })
+                        <small>[km]</small>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="TrainingTypeId" class="control-label">
+                        Trainingstyp:</label>
+                    <div class="controls">
+                        @Html.DropDownList("TrainingTypeId", Model.TrainingTypes, new { @class = "input-medium" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="Description" class="control-label">
+                        Notizen:</label>
+                    <div class="controls">
+                        @Html.TextArea("Description", Model != null ? Model.Description : null, new { @class = "input-xlarge" })
+                    </div>
+                </div>
+                @if (Model.IsNew)
+                {
+                    <div class="control-group">
+                        <label for="IsCopy" class="control-label">
+                            Als Kopie speichern?</label>
+                        <div class="controls">
+                            @Html.CheckBoxFor(model => model.IsCopy)
+                        </div>
+                    </div>
+                }
+                <div id="PlanFormErrorSummary" class="error">
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Date").datepicker(
+                {
+                    option: $.datepicker.regional["de"],
+                    showWeek: true,
+                    firstDay: 1
+                });
+            var dayClicked = $("#currentDay").val();
+            if (dayClicked > 0) {
+                var month = $("#CurrentMonth").val() - 1;
+                var year = $("#CurrentYear").val();
+                $("#Date").datepicker("setDate", new Date(year, month, dayClicked));
+            }
+
+            $("#Duration").focus(function () {
+                if ($(".ui-datepicker-current").length > 0) {
+                    $(".ui-datepicker-current").hide();
+                }
+            });
+
+            $("#DetailsForm").validate({
+                rules: {
+                    Date: {
+                        required: true,
+                        DEDate: true
+                    },
+                    Duration: {
+                        required: true,
+                        regex: /^([0-9]{0,3}$)|(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$|^([01]\d|2[0-3])(:[0-5]\d){0,2}$)/
+                    },
+                    Distance: {
+                        range: [0, 500]
+                    }
+                },
+                messages: {
+                    Date: {
+                        required: '*'
+                    },
+                    Duration: {
+                        required: '*',
+                        regex: '*'
+                    },
+                    Distance: {
+                        range: '*'
+                    }
+                },
+                errorElement: "span",
+                errorPlacement: function (error, element) {
+                    error.addClass("help-inline");
+                    element.siblings("label").append(error);
+                },
+                highlight: function (element) {
+                    //$(element).siblings("label").addClass("error");
+                    $(element).parents(".control-group").addClass("error");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".control-group").removeClass("error");
+                }
+            });
+            $("#deleteButton").on("click", function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var $msg = $(this).attr("title");
+
+                bootbox.confirm($msg, function (result) {
+                    if (result) {
+                        deleteRow($btn, function () {
+                            window.location.href = "@Url.Action("Index")";
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
